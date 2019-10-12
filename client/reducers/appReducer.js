@@ -19,6 +19,7 @@ const initialState = {
   activePet: null,
 }
 
+
 const appReducer = (state=initialState, action) => {
   switch(action.type) {
     case types.LOGIN:
@@ -47,6 +48,10 @@ const appReducer = (state=initialState, action) => {
       // if pet exists in state
 
         // send PATCH request with payload
+    default:
+      
+      return state
+      break;
   }
 }
 
