@@ -1,5 +1,6 @@
 const express = require('express');
 const path = require('path');
+const bodyParser = require('body-parser');
 // const db = require('../database/database.js');
 const accountsRouter = require('./routes/accountsRouter');
 const petsRouter = require('./routes/petsRouter');
@@ -11,6 +12,13 @@ const PORT = 3000;
 // db.query('SELECT * FROM pets', (err, res) => {
 //   console.log('this is the db response: ', res.rows);
 // });
+
+app.use(bodyParser.json(), (req, res, next) => {
+  console.log('\n*********** BodyParser ****************', `\nMETHOD: ${req.method} \nENDPOINT: '${req.url}' \nBODY: ${JSON.stringify(req.body)}`);
+  // eslint-disable-next-line max-len
+  // console.log('\n*********** CookieParser ****************', `\nMETHOD: ${req.method} \nENDPOINT: '${req.url}' \nCOOKIES: ${JSON.stringify(req.cookies)}`);
+  return next();
+});
 
 app.use('/accounts', accountsRouter);
 
