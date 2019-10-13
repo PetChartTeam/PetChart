@@ -22,10 +22,8 @@ accountsController.createAccount = (req, res, next) => {
 
         if (err) {
           const { detail } = err;
-          // err.message = detail;
           const errorObj = {};
           errorObj.message = detail;
-          // console.log('create account error: ', err.message);
           return next(errorObj);
         }
         console.log('create account success: ', success);
@@ -36,45 +34,58 @@ accountsController.createAccount = (req, res, next) => {
 
 accountsController.login = (req, res, next) => {
   const { email, password } = req.body;
-  const hashQuery = {
+  const profileQuery = {
     name: 'retrieve hash password',
     text: `SELECT * FROM owners WHERE email = '${email}'`,
   };
 
   // console.log('this is the hash query obj: ', hashQuery);
 
-  db.query(hashQuery, (hashQueryErr, profile) => {
+  db.query(profileQuery, (profileQueryErr, profile) => {
 
-    if (hashQueryErr) {
-      console.log('error from password retrievel: ', hashQueryErr);
-      return next(hashQueryErr);
+    if (profileQueryErr) {
+      console.log('error from password retrievel query: ', profileQueryErr);
+      return next(profileQueryErr);
     }
+    // test if the profile query returned a saved profile
+    // query always returns an array
+    // if profile doesn't exist, the array will be empty
+    // query response comes in profile.rows array -> values of array are objs
+    if (profile.rows[0]) {
+      // this is the response obj if the profile exists
+      res.locals.profileMatch = true;
 
-    // console.log('returned query SELECT obj: ', profile.rows[0].password);
-    // console.log('this is req.body.password value: ', password);
+      // run a bcrypt comparison of req.body.password with encrypted password
+      bcrypt.compare(password, profile.rows[0].password, (bcryptErr, passwordMatch) => {
 
-    bcrypt.compare(password, profile.rows[0].password, (bcryptErr, passwordMatch) => {
+        if (bcryptErr) {
+          console.log('error from bcrypt compare: ', bcryptErr);
+          return next(bcryptErr);
+        }
 
-      if (bcryptErr) {
-        console.log('error from bcrypt compare: ', bcryptErr);
-        return next(bcryptErr);
-      }
+        // bcrypt compare returns a boolean, save it as a property on the res.locals obj
+        res.locals.passwordMatch = passwordMatch;
 
-      res.locals.passwordMatch = passwordMatch;
-
-      if (!passwordMatch) {
+        // if bcrypt.compare returns false, we don't want to save any profile info
+        // and move to the next middleware
+        if (!passwordMatch) {
+          return next();
+        }
+        // if bcrypt.compare returns true
+        // save all of the query profile data into res.locals obj
+        res.locals.owner = {
+          id: profile.rows[0].owner_id,
+          firstName: profile.rows[0].first_name,
+          lastName: profile.rows[0].last_name,
+          email: profile.rows[0].email,
+        };
         return next();
-      }
-
-      res.locals.owner = {
-        id: profile.rows[0].owner_id,
-        firstName: profile.rows[0].first_name,
-        lastName: profile.rows[0].last_name,
-        email: profile.rows[0].email,
-      };
-
+      });
+    } else {
+      // this is the response obj if the profile query returned an empty obj -> profile doesn't exist
+      res.locals.profileMatch = false;
       return next();
-    });
+    }
   });
 };
 
