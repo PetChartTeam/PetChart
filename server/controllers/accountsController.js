@@ -34,6 +34,7 @@ accountsController.createAccount = (req, res, next) => {
 
 accountsController.login = (req, res, next) => {
   const { email, password } = req.body;
+
   const profileQuery = {
     name: 'retrieve hash password',
     text: `SELECT * FROM owners WHERE email = '${email}'`,

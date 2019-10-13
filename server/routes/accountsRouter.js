@@ -9,6 +9,11 @@ router.post('/register', accountsController.createAccount, (req, res) => {
 router.get('/login', accountsController.login, (req, res) => {
   if (res.locals.profileMatch) {
     if (res.locals.passwordMatch) {
+
+      // res.locals has three properties
+      // profileMatch: true
+      // passwordMatch: true
+      // owner: {}
       res.status(200).send(res.locals);
     } else {
       res.status(200).send('Incorrect password dummy!');
