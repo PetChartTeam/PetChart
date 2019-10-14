@@ -31,6 +31,13 @@ app.all('*', (req, res) => {
   res.status(404).send('Page not found assholes!');
 });
 
+/**
+ * @name GLOBAL ERROR HANDLER
+ * @description sending error objects from controllers/routes should be sent as an object with
+ * 'status' and 'message' as key.
+ * Status value should be a status code & message value should be a string describing the error
+ * and location/file in which the error was invoked from
+ */
 app.use('/', (err, req, res, next) => {
   const defaultError = {
     status: 500,
