@@ -18,13 +18,16 @@ visitsController.createVisit = (req, res, next) => {
     const addVisit = vetID ? visitQuery.createVisit : visitQuery.createVisitWithoutVet;
 
     const visitData = vetID ? [date, notes, petID, vetID] : [date, notes, petID];
-    db.query(addVisit, visitData)
-      .then((newVisit) => {
-        // successful query
-        res.locals.newVisit = newVisit.rows[0];
-        return next();
-      })
-      .catch((visitQueryErr) => next(visitQueryErr))
+    db.connect((err, client, release) => {
+      client.query(addVisit, visitData)
+        .then((newVisit) => {
+          release()
+          // successful query
+          res.locals.newVisit = newVisit.rows[0];
+          return next();
+        })
+        .catch((visitQueryErr) => next(visitQueryErr));
+    });
   }
 }
 
@@ -41,22 +44,29 @@ visitsController.getVisits = (req, res, next) => {
     if (pets) {
       // queries for visits for each pet, returning unresolved promises
       // combinedPromises = [<Promise>, <Promise>, ...]
-      const combinedPromises = pets.map((pet) => db.query(visitQuery.getVisit, [pet.id]));
-      Promise.all(combinedPromises)
-        .then((visitList) => {
-          /**
-           * @visit is a single visit object
-           * @index is used to get a current pet to add a visits property with the 
-           * value being an array of visit objects
-           */
-          visitList.forEach((visit, index) => {
-            // visit.rows is an array of visits 
-            // [ {id: 1, date: '08/10/2019, notes: 'stomach issue'}, ...]
-            pets[index].visits = visit.rows;
+      db.connect((err, client, release) => {
+        const combinedPromises = pets.map((pet) => client.query(visitQuery.getVisit, [pet.id]));
+        // release client after every query
+        release();
+        Promise.all(combinedPromises)
+          .then((visitList) => {
+            /**
+             * @visit is a single visit object
+             * @index is used to get a current pet to add a visits property with the
+             * value being an array of visit objects
+             */
+            visitList.forEach((visit, index) => {
+              // visit.rows is an array of visits
+              // [ {id: 1, date: '08/10/2019, notes: 'stomach issue'}, ...]
+              pets[index].visits = visit.rows;
+            });
+            return next();
           })
-          return next()
-        })
-        .catch((err) => next(err))
+          .catch((err) => {
+            console.log("CATCH ERROR ***********", err);
+            return next(err);
+          });
+      });
     } else {
       // this return is for no pets inside res.locals
       return next();
@@ -68,7 +78,4 @@ visitsController.getVisits = (req, res, next) => {
 
 }
 
-
-
-// owner logs in -> gets array of pets -> iterate through each pet & get all visits from each pet
 module.exports = visitsController;
