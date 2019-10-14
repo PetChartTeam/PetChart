@@ -235,15 +235,19 @@ const appReducer = (state = initialState, action) => {
       console.log('save pet successful: ', action.payload);
       const responsePet = action.payload;
       // copy pets array from state
-      const petsArr = state.userProfile.pets;
+      const {userProfile} = state;
       // spread empty pet object and overwrite with server response in action payload
       const newPet = {
         ...emptyPet,
         ...responsePet,
       };
+      userProfile.pets.push(newPet);
       // still need to update state once server response is update by Mike R
-      console.log('petsArr: ', petsArr, 'newPet: ', newPet);
-      return state; }
+      console.log('pets array: ', userProfile.pets, 'newPet: ', newPet);
+      return {
+        ...state,
+        userProfile,
+      }; }
     default:
       console.log('default state: ', state);
       return state;

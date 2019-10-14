@@ -19,7 +19,7 @@ const Nav = (props) => {
   console.log('Nav props: ', props);
   // console.log('Nav petNavDetails: ', props.petNavDetails);
   const petButtons = [];
-  props.petNavDetails.forEach((petObj, i) => {
+  props.pets.forEach((petObj, i) => {
     // console.log(petObj);
     petButtons.push(<PetNameButton activatePet={props.activatePet} petId={petObj.id} petName={petObj.name} key={`petNav${i}`} />);
   });

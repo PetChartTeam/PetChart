@@ -20,7 +20,7 @@ const Home = (props) => {
   console.log('homeprops', props);
 
   const petButtons = [];
-  props.petHomeDetails.forEach((petObj, i) => {
+  props.pets.forEach((petObj, i) => {
     // console.log(petObj);
     petButtons.push(<PetNameButton activatePet={props.activatePet} petId={petObj.id} petName={petObj.name} key={`petNav${i}`} />);
   });

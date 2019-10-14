@@ -71,13 +71,14 @@ class Dashboard extends Component {
   }
 
   render() {
-    console.log('Dashboard petNavDetails: ', this.petNavDetails);
+    // console.log('Dashboard petNavDetails: ', this.petNavDetails);
     // set default childPage to Home component
-    let childPage = <Home changeDBPage={this.props.changeDBPage} petHomeDetails={this.petHomeDetails} />;
+    const homeComponent = <Home changeDBPage={this.props.changeDBPage} pets={this.props.userProfile.pets} activatePet={this.activatePet} />;
+    let childPage = homeComponent;
     // check if state dashboardPage is home or profile and render corresponding component
     switch (this.props.dashboardPage) {
       case 'home':
-        childPage = <Home changeDBPage={this.props.changeDBPage} activatePet={this.activatePet} petHomeDetails={this.petHomeDetails} />;
+        childPage = homeComponent;
         break;
       case 'profile':
         childPage = <Profile changeDBPage={this.props.changeDBPage} activePet={this.props.activePet} savePet={this.props.savePet} ownerID={this.props.userProfile.owner.id} />;
@@ -88,7 +89,7 @@ class Dashboard extends Component {
     return (
       // always render Nav component and whatever childPage is set to
       <div>
-        <Nav changeDBPage={this.props.changeDBPage} activatePet={this.activatePet} owner={this.props.userProfile.owner.firstName} petNavDetails={this.petNavDetails} />
+        <Nav changeDBPage={this.props.changeDBPage} activatePet={this.activatePet} owner={this.props.userProfile.owner.firstName} pets={this.props.userProfile.pets} />
         {childPage}
       </div>
     );
