@@ -21,7 +21,7 @@ visitsController.createVisit = (req, res, next) => {
     db.connect((err, client, release) => {
       client.query(addVisit, visitData)
         .then((newVisit) => {
-          release()
+          release();
           // successful query
           res.locals.newVisit = newVisit.rows[0];
           return next();
