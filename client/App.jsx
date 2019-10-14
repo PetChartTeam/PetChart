@@ -1,9 +1,29 @@
-import React, { Component } from 'react';
+/**
+ * ************************************
+ *
+ * @module  App.jsx
+ * @author Austin Ruby and Michael Evans
+ * @date 10/12/2019
+ * @description renders MainContainer
+ *
+ * ************************************
+ */
 
-const App = () => (
-  <div>
-      Pink Fairy Armadillos, scumbag
-  </div>
-);
+import React, { Component } from 'react';
+import MainContainer from './containers/MainContainer.jsx';
+
+class App extends Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    return(
+      <div>
+        <MainContainer/>
+      </div>
+    )
+  }
+}
 
 export default App;

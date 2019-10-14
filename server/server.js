@@ -1,7 +1,6 @@
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
-// const db = require('../database/database.js');
 const accountsRouter = require('./routes/accountsRouter');
 const petsRouter = require('./routes/petsRouter');
 
@@ -45,6 +44,7 @@ app.use('/', (err, req, res, next) => {
     message: 'express error caught unknown middleware error'
   };
   const newError = { ...defaultError, ...err };
+  console.log('This is newError object: ', newError);
   console.log('This is global error handler: ', newError.message);
   res.status(newError.status).send(newError.message);
 });
