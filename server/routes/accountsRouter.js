@@ -3,6 +3,7 @@ const router = require('express').Router();
 const accountsController = require('../controllers/accountsController');
 const petsController = require('../controllers/petsController');
 const visitsController = require('../controllers/visitsController');
+const db = require('../../database/database');
 
 
 router.post('/register', accountsController.createAccount, (req, res) => {
@@ -21,16 +22,20 @@ router.post('/login',
   petsController.getPets, 
   visitsController.getVisits, 
   (req, res) => {
-  if (res.locals.profileMatch) {
-    if (res.locals.passwordMatch) {
-      const { owner, pets } = res.locals;
-      res.status(200).json({owner, pets});
+    db.end(() => console.log('\n ********** Closed pool *********'))
+    if (res.locals.profileMatch) {
+      if (res.locals.passwordMatch) {
+        const { owner, pets } = res.locals;
+        res.status(200).json({owner, pets});
+      } else {
+        const { passwordMatch } = res.locals
+        res.status(401).json({ passwordMatch });
+      }
     } else {
-      res.status(200).send('Incorrect password dummy!');
+      const { profileMatch } = res.locals
+      res.status(401).json({ profileMatch });
     }
-  } else {
-    res.status(200).send('You need to register silly!');
   }
-}); 
+); 
 
 module.exports = router;

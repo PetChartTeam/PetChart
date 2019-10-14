@@ -9,28 +9,25 @@ const db = require('../../database/database');
 petsController.getPets = (req, res, next) => {
   console.log('\n*********** petsController.getPets ****************', `\nMETHOD: ${req.method} \nENDPOINT: '${req.url}' \nBODY: ${JSON.stringify(req.body)} \nLOCALS: ${JSON.stringify(res.locals)} `);
 
-  // NOTES: id will be retrieved from a user logging in
-  const { id } = res.locals.owner;
   const { passwordMatch, profileMatch } = res.locals;
-
+  
   if (profileMatch && passwordMatch) {
+    // NOTES: id will be retrieved from a user logging in
+    const { id } = res.locals.owner;
     db.query(petQuery.getPetsFromOwner, [id])
-      .then((petList) => {
-        // successful query
-        const newPetList = petList.rows.map((pet) => {
-          // switching keys for each pet from snake_case to camelCase
-          const {
-            pet_id, name, type, gender, spayed, birth_year, vet_id,
-          } = pet;
-          return {
-            id: pet_id, name, type, gender, spayed, birthYear: birth_year, vetID: vet_id,
-          };
-        });
-
+    .then((petList) => {
+      // successful query
+      const newPetList = petList.rows.map(pet => {
+        // switching keys for each pet from snake_case to camelCase
+        const { pet_id, name, type, gender, spayed, birth_year, vet_id} = pet;
+        return { id: pet_id, name, type, gender, spayed, birthYear: birth_year, vetID: vet_id };
+      });
         res.locals.pets = newPetList;
         return next();
-      })
-      .catch((petQueryErr) => next(petQueryErr));
+    })
+    .catch((petQueryErr) => next(petQueryErr));
+  } else {
+    return next();
   }
 };
 
