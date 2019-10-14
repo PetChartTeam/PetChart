@@ -27,8 +27,8 @@ petsController.getPets = (req, res, next) => {
 /**
  * @description adds a Pet from a single user(owner) to the database
  * (vet_id is optional, owner_id must be required)
- * @requirements : a owner_id stored inside res.locals
- * @optionals : a vet_id stored inside res.locals
+ * @requirements : a owner_id stored inside req.body
+ * @optionals : a vet_id stored inside req.body
  */
 petsController.addPet = (req, res, next) => {
   console.log('\n*********** petsController.addPet ****************', `\nMETHOD: ${req.method} \nENDPOINT: '${req.url}' \nBODY: ${JSON.stringify(req.body)} \nLOCALS: ${JSON.stringify(res.locals)} `);
@@ -49,7 +49,7 @@ petsController.addPet = (req, res, next) => {
         res.locals.newPet = newPet.rows[0];
         return next();
       })
-      .catch((err) => next(err));
+      .catch((petQueryErr) => next(petQueryErr));
   }
 };
 
