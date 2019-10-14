@@ -18,7 +18,7 @@ module.exports = {
   },
   plugins: [
     'react',
-    'redux',
+    'react-redux',
   ],
   rules: {
   },

@@ -35,14 +35,15 @@ export const changePublicPage = (publicPage) => ({
   payload: publicPage,
 });
 
-export const changePage = (pageName, petId) => ({
+export const changeDBPage = (pageName, activePet) => ({
   type: types.CHANGE_DB_PAGE,
   payload: {
-    pageName,
+    dashboardPage,
     activePet,
   },
 });
 
+// petProfile is an object with information to update on pet record
 export const savePet = (petProfile) => ({
   type: types.SAVE_PET,
   payload: petProfile,
