@@ -32,8 +32,15 @@ class MainContainer extends Component {
     super(props);
 
     this.verifyUser = this.verifyUser.bind(this);
+    this.addNewUser = this.verifyUser.bind(this);
   }
 
+
+  //verify user is called from the Login.jsx component
+  //verify user will:
+  //  (1) Submit the username and password
+  //  (2) on successfull login, dispatch the reponse big ass object 
+  //      to the reducer
   verifyUser (event) {
     event.preventDefault();   
     const form = document.getElementById("loginForm");
@@ -43,28 +50,14 @@ class MainContainer extends Component {
 
     console.log(credentials)
 
-    /*new Promise(function(resolve, reject) {
-      setTimeout(function() {
-        resolve('foo');
-      }, 1000);
-    })
-    .then(resolve => {
-        alert(resolve);
-        console.log('checking props',this.props);
-        this.props.createUserProfile('userProfile')
-      }
-    )
-    .catch(err => console.log(err));*/
-
-    //package into object
     let method = 'POST';
-    console.log(credentials)
-    fetch('accounts/register', {
+  
+    fetch('accounts/login', {
         method,
         body: JSON.stringify(credentials),
         headers: {'Content-Type': 'application/json'},
       })
-      .then(res => res.text())
+      .then(res => res.json())
       .then(userProfile => {
         console.log(userProfile);
         this.props.createUserProfile('userProfile')
@@ -73,10 +66,37 @@ class MainContainer extends Component {
     
   }
 
+  addNewUser (event) {
+    console.log('made it to addNewUser');
+    event.preventDefault();   
+    const form = document.getElementById("signupForm");
+    //const firstName = form[0].value;
+    const lastName = form[1].value;
+    const email = form[2].value;
+    const password = form[3].value;
+    const createUser = {firstName, lastName, email, password};
+    let method = 'POST';
+
+    console.log(createUser)
+    alert(createUser);
+    /*fetch('accounts/register', {
+        method,
+        body: JSON.stringify(createUser),
+        headers: {'Content-Type': 'application/json'},
+      })
+      .then(res => res.text())
+      .then(helloUser => {
+        console.log(helloUser);
+        this.props.publicPage('login');
+      }) //dispatch pets to reducer
+      .catch(err => console.log('getProfile: ERROR: ', err));*/
+    
+  }
+
   render() {
 
-    // render different components depending on app state
-    //console.log(props);
+    //render different components depending on app state
+    
     switch (this.props.appPage) {
       case 'login':
         return (
@@ -88,7 +108,7 @@ class MainContainer extends Component {
         );
       case 'signup':
         return (
-          <Signup publicPage = {this.props.publicPage}/>
+          <Signup publicPage = {this.props.publicPage} newUser = {this.addNewUser}/>
         );
       default:
         console.log('the props.appPage is undefined')

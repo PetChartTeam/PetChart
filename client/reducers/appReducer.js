@@ -15,7 +15,7 @@ const initialState = {
   appPage: 'login',
   dashboardPage: 'home',
   ownerName: null,
-  uderProfile: null,
+  userProfile: null,
   activePet: null,
 }
 
@@ -61,8 +61,15 @@ const appReducer = (state=initialState, action) => {
         // send PATCH request with payload
     case types.SAVE_PROFILE:
         
-      alert('user profile reducer path')
-      return state;
+      alert('user profile loaded!')
+
+      const newUserProfile = action.payload;
+
+      return {
+        ...state,
+        userProfile: newUserProfile,
+      };
+
     default:
        
       return state

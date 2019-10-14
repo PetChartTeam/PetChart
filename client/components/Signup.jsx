@@ -13,10 +13,10 @@
 import React, {Component} from 'react';
 
 
-const Signup = () => (
+const Signup = (props) => (
   <div>
     signup form:
-    <form id = "loginForm" onSubmit = { (event) => props.saveProfile(event)}>
+    <form id = "signupForm" onSubmit = { (event) => props.newUser(event)}>
       <label> First Name: </label>
       <input type="input" id = "email"></input>
       <br></br>
@@ -26,7 +26,7 @@ const Signup = () => (
       <label> Email: </label>
       <input type="input" id = "email"></input>
       <br></br>
-      <label> password: </label>
+      <label> Password: </label>
       <input type="input" id = "password"></input>
       <br></br>
       <input type="submit" value="create user name"></input>
