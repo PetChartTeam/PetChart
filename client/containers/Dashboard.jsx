@@ -80,7 +80,7 @@ class Dashboard extends Component {
         childPage = <Home changeDBPage={this.props.changeDBPage} activatePet={this.activatePet} petHomeDetails={this.petHomeDetails} />;
         break;
       case 'profile':
-        childPage = <Profile changeDBPage={this.props.changeDBPage} activePet={this.props.activePet} savePet={this.props.savePet} />;
+        childPage = <Profile changeDBPage={this.props.changeDBPage} activePet={this.props.activePet} savePet={this.props.savePet} ownerID={this.props.userProfile.owner.id} />;
         break;
       default:
         break;

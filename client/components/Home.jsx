@@ -14,6 +14,7 @@
 import React from 'react';
 
 import PetNameButton from './PetNameButton.jsx';
+import emptyPet from '../constants/emptyPetObj';
 
 const Home = (props) => {
   console.log('homeprops', props);
@@ -27,6 +28,7 @@ const Home = (props) => {
     <div>
       HomePage
       {petButtons}
+      <button type="button" onClick={() => props.changeDBPage('profile', emptyPet)}>Add a Pet</button>
     </div>
   );
 };

@@ -10,6 +10,7 @@
  */
 
 import * as types from '../constants/actionTypes';
+import emptyPet from '../constants/emptyPetObj';
 
 const dummyPet = {
   owner: {
@@ -183,7 +184,19 @@ const initialState = {
   dashboardPage: 'home',
   ownerName: null,
   userProfile: dummyPet,
-  activePet: null,
+  activePet: {
+    id: null,
+    name: null,
+    type: null,
+    gender: null,
+    spayed: null,
+    birth_year: null,
+    vet: null,
+    profilePic: null,
+    visits: [],
+    surgeries: [],
+    vaccines: [],
+  },
 };
 
 
@@ -218,12 +231,19 @@ const appReducer = (state = initialState, action) => {
         activePet,
       });
     }
-    case types.SAVE_PET:
-      // if pet exists in state
-
-      // send PATCH request with payload
+    case types.SAVE_PET: {
       console.log('save pet successful: ', action.payload);
-      return state;
+      const responsePet = action.payload;
+      // copy pets array from state
+      const petsArr = state.userProfile.pets;
+      // spread empty pet object and overwrite with server response in action payload
+      const newPet = {
+        ...emptyPet,
+        ...responsePet,
+      };
+      // still need to update state once server response is update by Mike R
+      console.log('petsArr: ', petsArr, 'newPet: ', newPet);
+      return state; }
     default:
       console.log('default state: ', state);
       return state;
