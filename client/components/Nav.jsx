@@ -25,8 +25,10 @@ const Nav = (props) => {
   });
   // console.log(petButtons);
   return (
-    <div>
-    NavBar
+    <div className="nav-bar">
+    Hello,
+      {' '}
+      {props.owner}
       <button type="button" onClick={() => props.changeDBPage('home')}>Home</button>
       {petButtons}
     </div>

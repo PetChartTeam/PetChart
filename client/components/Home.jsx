@@ -25,7 +25,7 @@ const Home = (props) => {
     petButtons.push(<PetNameButton activatePet={props.activatePet} petId={petObj.id} petName={petObj.name} key={`petNav${i}`} />);
   });
   return (
-    <div>
+    <div className="home-container">
       HomePage
       {petButtons}
       <button type="button" onClick={() => props.changeDBPage('profile', emptyPet)}>Add a Pet</button>
