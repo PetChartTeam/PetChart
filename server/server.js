@@ -5,6 +5,7 @@ const accountsRouter = require('./routes/accountsRouter');
 const petsRouter = require('./routes/petsRouter');
 const vetsRouter = require('./routes/vetsRouter');
 const visitsRouter = require('./routes/visitsRouter');
+const vaccinesRouter = require('./routes/vaccinesRouter');
 
 const app = express();
 
@@ -24,6 +25,8 @@ app.use(bodyParser.json(), (req, res, next) => {
 app.use('/accounts', accountsRouter);
 
 app.use('/pets', petsRouter);
+
+app.use('/vaccines', vaccinesRouter);
 
 app.use('/vets', vetsRouter);
 

@@ -1,6 +1,6 @@
 const db = require('../../database/database');
 
-vetsController = {};
+const vetsController = {};
 
 /**
  * @description gets all Vets from the db
@@ -13,20 +13,29 @@ vetsController.searchVets = (req, res, next) => {
     name: 'search vets',
     text: 'SELECT * FROM vets',
     /* text: 'SELECT * FROM vets WHERE column = ${params}' */
-  }
+  };
   // query the db for all available vet info
-  db.query(query, (searchErr, vets) => {
-    if (searchErr) {
-      searchErr.status = 404;
-      searchErr.message = 'error in the vets controller search query';
-      return next(searchErr);
-    }
+  db.connect((err, client, release) => {
+    release();
+    if (err) {
+      const error = {};
+      error.message = 'error in vets search controller db.connect'
+      return next(error);
+    };
+    client.query(query, (searchErr, vets) => {
+      if (searchErr) {
+        const err = {};
+        err.status = 404;
+        err.message = 'error in the vets controller search query';
+        return next(err);
+      };
 
-    // NEED TO FINISH THIS FUNCTIONALITY!!!
-    res.locals.vets = vets.rows;
+      // NEED TO FINISH THIS FUNCTIONALITY!!!
+      res.locals.vets = {};
 
-    return next();
-  });
+      return next();
+    });
+  })
 };
 
 module.exports = vetsController;

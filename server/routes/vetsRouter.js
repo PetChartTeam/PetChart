@@ -8,7 +8,7 @@ const vetsController = require('../controllers/vetsController');
  * @returns -> an array of all vets via JSON
  */
 router.get('/', vetsController.searchVets, (req, res) => {
-  res.status(200).send(res.locals.vets);
+  res.status(200).json(res.locals.vets);
 })
 
 module.exports = router;
