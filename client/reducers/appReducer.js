@@ -180,32 +180,18 @@ const dummyPet = {
 };
 
 const initialState = {
-  appPage: 'dashboard',
+  appPage: 'login',
   dashboardPage: 'home',
   ownerName: null,
-
-  userProfile: null,
-  activePet: {
-    id: null,
-    name: null,
-    type: null,
-    gender: null,
-    spayed: null,
-    birthYear: null,
-    vet: null,
-    profilePic: null,
-    visits: [],
-    surgeries: [],
-    vaccines: [],
-  },
+  userProfile: dummyPet,
+  activePet: emptyPet,
 };
 
 
-const appReducer = (state=initialState, action) => {
-  
-  switch(action.type) {
+const appReducer = (state = initialState, action) => {
+  switch (action.type) {
     case types.PUBLIC_PAGE:
-      
+
       const newPage = action.payload;
 
       return {
@@ -213,11 +199,9 @@ const appReducer = (state=initialState, action) => {
         appPage: newPage,
       };
 
-      //return state;
+      // return state;
 
     case types.CHANGE_DB_PAGE: {
-
-
       console.log('change db page successful');
       const { dashboardPage, activePet } = action.payload;
       return ({
@@ -230,7 +214,7 @@ const appReducer = (state=initialState, action) => {
       console.log('save pet successful: ', action.payload);
       const responsePet = action.payload;
       // copy pets array from state
-      const {userProfile} = state;
+      const { userProfile } = state;
       // spread empty pet object and overwrite with server response in action payload
       const newPet = {
         ...emptyPet,
@@ -243,26 +227,21 @@ const appReducer = (state=initialState, action) => {
         ...state,
         userProfile,
       }; }
-    default:
-      console.log('default state: ', state);
-      return state;
 
     case types.SAVE_PROFILE:
-        
-      //alert('user profile loaded!')
 
-      const newUserProfile = action.payload;
+      // alert('user profile loaded!')
+
+      const userProfile = action.payload;
 
       return {
         ...state,
-        userProfile: newUserProfile,
+        appPage: 'dashboard',
+        userProfile,
       };
 
     default:
-       
-      return state
-      break;
-
+      return state;
   }
 };
 

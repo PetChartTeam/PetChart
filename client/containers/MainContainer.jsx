@@ -13,19 +13,21 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import Login from '../components/Login.jsx'; 
-import Signup from '../components/Signup.jsx';
-import * as actions from '../actions/actions';
 import { type } from 'os';
+import Login from '../components/Login.jsx';
+import Signup from '../components/Signup.jsx';
+import Dashboard from './Dashboard.jsx';
+import * as actions from '../actions/actions';
+import emptyPet from '../constants/emptyPetObj';
 
 const mapStateToProps = (state) => ({
   appPage: state.app.appPage,
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   publicPage: (newPage) => dispatch(actions.changePublicPage(newPage)),
-  createUserProfile: (profile) => dispatch(actions.saveProfile(profile))
-})
+  createUserProfile: (profile) => dispatch(actions.saveProfile(profile)),
+});
 
 class MainContainer extends Component {
   constructor(props) {
@@ -36,75 +38,82 @@ class MainContainer extends Component {
   }
 
 
-  //verify user is called from the Login.jsx component
-  //verify user will:
+  // verify user is called from the Login.jsx component
+  // verify user will:
   //  (1) Submit the username and password
-  //  (2) on successfull login, dispatch the reponse big ass object 
+  //  (2) on successfull login, dispatch the reponse big ass object
   //      to the reducer
-  verifyUser (event) {
-    console.log("verify user");
-    event.preventDefault();   
-    const form = document.getElementById("loginForm");
+  verifyUser(event) {
+    console.log('verify user');
+    event.preventDefault();
+    const form = document.getElementById('loginForm');
     const email = form[0].value;
     const password = form[1].value;
-    const credentials = {email, password};
+    const credentials = { email, password };
 
-    //console.log(credentials)
+    // console.log(credentials)
 
-    let method = 'POST';
-  
+    const method = 'POST';
+
     fetch('accounts/login', {
-        method,
-        body: JSON.stringify(credentials),
-        headers: {'Content-Type': 'application/json'},
+      method,
+      body: JSON.stringify(credentials),
+      headers: { 'Content-Type': 'application/json' },
+    })
+      .then((res) => res.json())
+      .then((userProfile) => {
+        console.log('userProfile', userProfile);
+        const newUserProfile = userProfile;
+        console.log('newUserProfile');
+        const newPetsArray = newUserProfile.pets.map((el) => ({
+          ...emptyPet,
+          ...el,
+        }));
+        console.log('newPetsArray', newPetsArray);
+        newUserProfile.pets = newPetsArray;
+        this.props.createUserProfile(newUserProfile);
       })
-      .then(res => res.json())
-      .then(userProfile => {
-        console.log(userProfile);
-        this.props.createUserProfile('userProfile')
-      })
-      .catch(err => console.log('getProfile: ERROR: ', err));
-    
+      .catch((err) => console.log('getProfile: ERROR: ', err));
   }
 
-  addNewUser (event) {
-    //addNewUser user will:
+  addNewUser(event) {
+    // addNewUser user will:
     //  (1) Submit an object containing first name, last name,
     //      email, password to the server to create a new user
     //  (2) redirect the user back to the login page to login
-    event.preventDefault();   
-    const form = document.getElementById("signupForm");
+    event.preventDefault();
+    const form = document.getElementById('signupForm');
     const firstName = form[0].value;
     const lastName = form[1].value;
     const email = form[2].value;
     const password = form[3].value;
-    const createUser = {firstName, lastName, email, password};
-    let method = 'POST';
+    const createUser = {
+      firstName, lastName, email, password,
+    };
+    const method = 'POST';
 
-    //console.log(createUser)
-    
+    // console.log(createUser)
+
     fetch('accounts/register', {
-        method,
-        body: JSON.stringify(createUser),
-        headers: {'Content-Type': 'application/json'},
-      })
-      .then(res => res.text())
-      .then(helloUser => {
+      method,
+      body: JSON.stringify(createUser),
+      headers: { 'Content-Type': 'application/json' },
+    })
+      .then((res) => res.text())
+      .then((helloUser) => {
         console.log(helloUser);
         this.props.publicPage('login');
       })
-      .catch(err => console.log('getProfile: ERROR: ', err));
-    
+      .catch((err) => console.log('getProfile: ERROR: ', err));
   }
 
   render() {
+    // render different components depending on app state
 
-    //render different components depending on app state
-    
     switch (this.props.appPage) {
       case 'login':
         return (
-          <Login publicPage = {this.props.publicPage} saveProfile = {this.verifyUser}/>
+          <Login publicPage={this.props.publicPage} saveProfile={this.verifyUser} />
         );
       case 'dashboard':
         return (
@@ -112,10 +121,10 @@ class MainContainer extends Component {
         );
       case 'signup':
         return (
-          <Signup publicPage = {this.props.publicPage} newUser = {this.addNewUser}/>
+          <Signup publicPage={this.props.publicPage} newUser={this.addNewUser} />
         );
       default:
-        console.log('the props.appPage is undefined')
+        console.log('the props.appPage is undefined');
         break;
     }
   }

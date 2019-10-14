@@ -29,13 +29,13 @@ export const signup = (firstName, lastName, email, password) => ({
   },
 });
 
-//action to navigate between login and signup pages
+// action to navigate between login and signup pages
 export const changePublicPage = (publicPage) => ({
   type: types.PUBLIC_PAGE,
   payload: publicPage,
 });
 
-export const changeDBPage = (pageName, activePet) => ({
+export const changeDBPage = (dashboardPage, activePet) => ({
   type: types.CHANGE_DB_PAGE,
   payload: {
     dashboardPage,
@@ -53,4 +53,3 @@ export const saveProfile = (userProfile) => ({
   type: types.SAVE_PROFILE,
   payload: userProfile,
 });
-
