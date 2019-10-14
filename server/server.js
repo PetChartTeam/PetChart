@@ -3,6 +3,8 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const accountsRouter = require('./routes/accountsRouter');
 const petsRouter = require('./routes/petsRouter');
+const vetsRouter = require('./routes/vetsRouter');
+const visitsRouter = require('./routes/visitsRouter');
 
 const app = express();
 
@@ -23,10 +25,18 @@ app.use('/accounts', accountsRouter);
 
 app.use('/pets', petsRouter);
 
+app.use('/vets', vetsRouter);
+
+app.use('/visits', visitsRouter);
+
 app.use('/build', express.static(path.resolve(__dirname, '../build')));
 
 app.get('/', (req, res) => res.sendFile(path.resolve(__dirname, '../client/index.html')));
 
+/**
+ * @name GLOBAL ROUTE HANDLER
+ * @description handles all bad request sent from frontend
+ */
 app.all('*', (req, res) => {
   res.status(404).send('Page not found assholes!');
 });
