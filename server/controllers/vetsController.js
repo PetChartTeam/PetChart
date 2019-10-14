@@ -1,6 +1,6 @@
 const db = require('../../database/database');
 
-vetsController = {};
+const vetsController = {};
 
 /**
  * @description gets all Vets from the db
@@ -13,7 +13,7 @@ vetsController.searchVets = (req, res, next) => {
     name: 'search vets',
     text: 'SELECT * FROM vets',
     /* text: 'SELECT * FROM vets WHERE column = ${params}' */
-  }
+  };
   // query the db for all available vet info
   db.query(query, (searchErr, vets) => {
     if (searchErr) {
