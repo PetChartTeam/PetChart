@@ -20,8 +20,9 @@ accountsController.createAccount = (req, res, next) => {
 
       db.connect((err, client, release) => {
         if (err) {
-          err.message = 'ERROR inside createAccount db.connect: ';
-          return next(err.message)
+          console.log(err)
+          const error = {message: 'ERROR inside createAccount db.connect: '};
+          return next(error)
         }
         client.query(query, (err, success) => {
           release()

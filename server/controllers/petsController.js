@@ -54,6 +54,7 @@ petsController.addPet = (req, res, next) => {
     const addPet = vetID ? petQuery.addPet : petQuery.addPetWithoutVet;
     const petData = vetID ? [name, type, gender, spayed, birthYear, ownerID, vetID] : [name, type, gender, spayed, birthYear, ownerID];
     db.connect((err, client, release) => {
+      console.log("ERROR: ", err);
       client.query(addPet, petData)
         .then((newPet) => {
           release();
@@ -62,7 +63,10 @@ petsController.addPet = (req, res, next) => {
           res.locals.newPet = { id: pet_id, name, type, gender, spayed, birthYear: birth_year, ownerID: owner_id, vetID: vet_id };
           return next();
         })
-        .catch((petQueryErr) => next(petQueryErr));
+        .catch((petQueryErr) => {
+          console.log('petERROR: ', petQueryErr);
+          next(petQueryErr);
+        });
     })
   }
 };
