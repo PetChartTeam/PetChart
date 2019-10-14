@@ -14,8 +14,6 @@ import React, {Component} from 'react';
 
 //return content to render for the login page
 const Login = (props) => {
-  let email = "";
-
   
   return (
     <div>
@@ -34,5 +32,5 @@ const Login = (props) => {
   )
 }
 
-//export default connect(null, mapDispatchToProps)(Login)
+
 export default Login;

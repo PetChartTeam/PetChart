@@ -22,7 +22,6 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  //login: (email, password) => dispatch(actions.login(email, password))
   publicPage: (newPage) => dispatch(actions.changePublicPage(newPage)),
   createUserProfile: (profile) => dispatch(actions.saveProfile(profile))
 })
@@ -49,7 +48,7 @@ class MainContainer extends Component {
     const password = form[1].value;
     const credentials = {email, password};
 
-    console.log(credentials)
+    //console.log(credentials)
 
     let method = 'POST';
   
@@ -62,25 +61,28 @@ class MainContainer extends Component {
       .then(userProfile => {
         console.log(userProfile);
         this.props.createUserProfile('userProfile')
-      }) //dispatch pets to reducer
+      })
       .catch(err => console.log('getProfile: ERROR: ', err));
     
   }
 
   addNewUser (event) {
-    console.log('made it to addNewUser');
+    //addNewUser user will:
+    //  (1) Submit an object containing first name, last name,
+    //      email, password to the server to create a new user
+    //  (2) redirect the user back to the login page to login
     event.preventDefault();   
     const form = document.getElementById("signupForm");
-    //const firstName = form[0].value;
+    const firstName = form[0].value;
     const lastName = form[1].value;
     const email = form[2].value;
     const password = form[3].value;
     const createUser = {firstName, lastName, email, password};
     let method = 'POST';
 
-    console.log(createUser)
-    alert(createUser);
-    /*fetch('accounts/register', {
+    //console.log(createUser)
+    
+    fetch('accounts/register', {
         method,
         body: JSON.stringify(createUser),
         headers: {'Content-Type': 'application/json'},
@@ -89,8 +91,8 @@ class MainContainer extends Component {
       .then(helloUser => {
         console.log(helloUser);
         this.props.publicPage('login');
-      }) //dispatch pets to reducer
-      .catch(err => console.log('getProfile: ERROR: ', err));*/
+      })
+      .catch(err => console.log('getProfile: ERROR: ', err));
     
   }
 
