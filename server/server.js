@@ -1,7 +1,6 @@
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
-// const db = require('../database/database.js');
 const accountsRouter = require('./routes/accountsRouter');
 const petsRouter = require('./routes/petsRouter');
 
@@ -32,12 +31,20 @@ app.all('*', (req, res) => {
   res.status(404).send('Page not found assholes!');
 });
 
+/**
+ * @name GLOBAL ERROR HANDLER
+ * @description sending error objects from controllers/routes should be sent as an object with
+ * 'status' and 'message' as key.
+ * Status value should be a status code & message value should be a string describing the error
+ * and location/file in which the error was invoked from
+ */
 app.use('/', (err, req, res, next) => {
   const defaultError = {
     status: 500,
     message: 'express error caught unknown middleware error'
   };
   const newError = { ...defaultError, ...err };
+  console.log('This is newError object: ', newError);
   console.log('This is global error handler: ', newError.message);
   res.status(newError.status).send(newError.message);
 });
