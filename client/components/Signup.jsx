@@ -11,14 +11,31 @@
  */
 
 import React, {Component} from 'react';
-import {connect} from 'react-redux';
 
-const mapDispatchToProps = dispatch => ({
-  signup: (firstName, lastName, email, password) => dispatch(actions.signup(firstName, lastName, email, password))
-})
 
-const Signup = () => (
-  <div>Fuck yeah</div>
-)
+const Signup = (props) => {
+  console.log(props)
+  return (
+  <div>
+    signup form:
+    <form id = "signupForm" onSubmit = { (event) => props.newUser(event)}>
+      <label> First Name: </label>
+      <input type="input" id = "email"></input>
+      <br></br>
+      <label> Last Name: </label>
+      <input type="input" id = "email"></input>
+      <br></br>
+      <label> Email: </label>
+      <input type="input" id = "email"></input>
+      <br></br>
+      <label> Password: </label>
+      <input type="input" id = "password"></input>
+      <br></br>
+      <input type="submit" value="create user name"></input>
+    </form>
+    <input type="button" value="back to login" onClick = { () => props.publicPage("login")} ></input>
+  </div>
 
-export default connect(null, mapDispatchToProps)(Signup)
+)}
+
+export default Signup;
