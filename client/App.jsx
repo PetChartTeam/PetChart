@@ -12,17 +12,19 @@
 import React, { Component } from 'react';
 import MainContainer from './containers/MainContainer.jsx';
 
+import './style.css';
+
 class App extends Component {
   constructor(props) {
     super(props);
   }
 
   render() {
-    return(
+    return (
       <div>
-        <MainContainer/>
+        <MainContainer />
       </div>
-    )
+    );
   }
 }
 

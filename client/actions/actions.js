@@ -29,15 +29,27 @@ export const signup = (firstName, lastName, email, password) => ({
   },
 });
 
-export const changePage = (pageName, petId) => ({
+// action to navigate between login and signup pages
+export const changePublicPage = (publicPage) => ({
+  type: types.PUBLIC_PAGE,
+  payload: publicPage,
+});
+
+export const changeDBPage = (dashboardPage, activePet) => ({
   type: types.CHANGE_DB_PAGE,
   payload: {
-    pageName,
+    dashboardPage,
     activePet,
   },
 });
 
+// petProfile is an object with information to update on pet record
 export const savePet = (petProfile) => ({
   type: types.SAVE_PET,
   payload: petProfile,
+});
+
+export const saveProfile = (userProfile) => ({
+  type: types.SAVE_PROFILE,
+  payload: userProfile,
 });

@@ -49,7 +49,6 @@ petsController.addPet = (req, res, next) => {
   if (req.body.pet) {
     // if vetID exist then we query normally otherwise we query without the vet_id column added
     const addPet = vetID ? petQuery.addPet : petQuery.addPetWithoutVet;
-
     const petData = vetID ? [name, type, gender, spayed, birthYear, ownerID, vetID] : [name, type, gender, spayed, birthYear, ownerID];
     db.query(addPet, petData)
       .then((newPet) => {

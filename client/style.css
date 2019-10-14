@@ -1,0 +1,28 @@
+/* Primary
+#61f2f5
+Secondary
+#ffffff
+Tertiary
+#e0e0e0
+Accent
+#723881 */
+
+body {
+  background-color: #723881;
+}
+
+.profile-header, .profile-body {
+  background-color: #ffffff;
+}
+
+.profile-container {
+  background-color: #61f2f5;
+}
+
+.nav-bar {
+  background-color: #e0e0e0;
+}
+
+.home-container {
+  color: white;
+}
