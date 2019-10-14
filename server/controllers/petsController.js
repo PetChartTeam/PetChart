@@ -56,12 +56,8 @@ petsController.addPet = (req, res, next) => {
     db.query(addPet, petData)
       .then((newPet) => {
         // successful query
-        const {
-          name, type, gender, spayed, birth_year, owner_id, vet_id,
-        } = newPet.rows[0];
-        res.locals.newPet = {
-          name, type, gender, spayed, birthYear: birth_year, ownerID: owner_id, vetID: vet_id,
-        };
+        const { pet_id, name, type, gender, spayed, birth_year, owner_id, vet_id} = newPet.rows[0];
+        res.locals.newPet = { id: pet_id, name, type, gender, spayed, birthYear: birth_year, ownerID: owner_id, vetID: vet_id };
         return next();
       })
       .catch((petQueryErr) => next(petQueryErr));
