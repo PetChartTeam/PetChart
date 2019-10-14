@@ -4,9 +4,10 @@
  * @module Profile
  * @author Austin Ruby and Michael Evans
  * @date 10/12/2019
- * @description functional component that displays
+ * @description stateful component that displays
  * a specific pet's profile info and allows the user
- * to modify that information
+ * to modify that information by sending requests to
+ * the server
  *
  * ***********************************
  */
@@ -71,16 +72,33 @@ class Profile extends Component {
     const form = document.querySelector('.visit-form');
     const date = form.date.value;
     const notes = form.notes.value;
-    const vet = form.vet.value;
-    const file = form.file.value;
-    const petProfile = {
-      id: this.props.activePet.id,
+    // const vet = form.vet.value;
+    // const file = form.file.value;
+    const visitDetails = {
+      petID: this.props.activePet.id,
       date,
       notes,
-      vet,
-      file,
+      // vet, --> not included in first version
+      // file, --> not included in first version
     };
-    return this.props.savePet(petProfile);
+
+    fetch('/visits/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ visit: visitDetails }),
+    })
+      .then((response) => response.json())
+      .then((visitObject) => {
+        console.log('created visit: ', visitObject);
+        // recreate active pet object
+        const updatedPet = this.props.activePet;
+        updatedPet.visits.push(visitObject)
+        console.log('updatedPet: ', updatedPet)
+        this.savePet(updatedPet);
+      })
+      .catch((err) => console.log(err));
   }
 
   // grab vaccine details from form

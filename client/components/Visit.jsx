@@ -18,7 +18,7 @@ const Visit = (props) => {
   return (
     <li className={`"visit-${visit.id}"`}>
       <p>{visit.date}</p>
-      <p>{visit.vet}</p>
+      {/* <p>{visit.vet}</p> not implemented in v1 */}
       <p>{visit.notes}</p>
     </li>
   );
