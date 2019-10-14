@@ -4,7 +4,7 @@ const emptyPet = {
   type: null,
   gender: null,
   spayed: null,
-  birth_year: null,
+  birthYear: null,
   vet: null,
   profilePic: null,
   visits: [],

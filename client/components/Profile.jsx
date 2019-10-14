@@ -177,7 +177,7 @@ class Profile extends Component {
               <li>
                 Born:
                 {' '}
-                {activePet.birth_year}
+                {activePet.birthYear}
               </li>
               <li>
                 Gender:
