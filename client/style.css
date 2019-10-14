@@ -7,8 +7,33 @@ Tertiary
 Accent
 #723881 */
 
+#root {
+  display: flex; 
+  background-color: white;
+  justify-content: center;
+  
+}
+
 body {
+  background-color: white;
+  margin: 0px;
+  box-sizing: border-box;
+  font-family: "apple-system","BlinkMacSystemFont","Segoe UI","Roboto","Helvetica Neue", "Arial", "Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+}
+
+#loginForm {
+  border: 2px solid #723881;
+  border-radius: 4px;
+  margin-top: 200px;
+  box-shadow: 0px 0px 2px 2px lightgray;
+  offset: 10px 10px 10px 10px;
+  padding: 25px;
+}
+
+#headerContainer {
+  width: 100%;
   background-color: #723881;
+  padding: 8px;
 }
 
 .profile-header, .profile-body {

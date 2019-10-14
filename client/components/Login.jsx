@@ -17,7 +17,7 @@ const Login = (props) => {
   
   return (
     <div>
-      login form:
+      {/* login form: */}
       <form id = "loginForm" onSubmit = { (event) => props.saveProfile(event)} >
         <label> Email: </label>
         <input type="input" id = "email"></input>
@@ -26,8 +26,9 @@ const Login = (props) => {
         <input type="input" id = "password"></input>
         <br></br>
         <input type="submit" value="login"></input>
+        <input type="button" value="Go to signup" onClick = { () => props.publicPage("signup")} ></input>
       </form>
-      <input type="submit" value="Go to signup" onClick = { () => props.publicPage("signup")} ></input>
+      
     </div>
   )
 }
