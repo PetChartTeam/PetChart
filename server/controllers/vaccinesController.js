@@ -38,6 +38,7 @@ vaccinesController.createVaccines = (req, res, next) => {
 
       console.log('this is the success obj: ', success.rows);
 
+      // release the instance of the db connection from the db pool
       release();
       return next();
 

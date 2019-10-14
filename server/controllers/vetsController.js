@@ -16,7 +16,6 @@ vetsController.searchVets = (req, res, next) => {
   };
   // query the db for all available vet info
   db.connect((err, client, release) => {
-    release();
     if (err) {
       const error = {};
       error.message = 'error in vets search controller db.connect'
@@ -33,6 +32,8 @@ vetsController.searchVets = (req, res, next) => {
       // NEED TO FINISH THIS FUNCTIONALITY!!!
       res.locals.vets = {};
 
+      // release the instance of the db connection from the db pool
+      release();
       return next();
     });
   })
