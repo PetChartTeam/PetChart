@@ -46,7 +46,7 @@ visitsController.getVisits = (req, res, next) => {
         .then((visitList) => {
           /**
            * @visit is a single visit object
-           * @index is used to get a current pet to add a visits property to with the 
+           * @index is used to get a current pet to add a visits property with the 
            * value being an array of visit objects
            */
           visitList.forEach((visit, index) => {
