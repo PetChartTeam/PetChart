@@ -29,43 +29,43 @@ visitsController.createVisit = (req, res, next) => {
 }
 
 /**
-* @description adds a Visit from a single user(owner) to the database
-* (vet_id is optional, pet_id must be required)
-* @requirements : a pet_id stored inside req.body
-* @optionals : a vet_id stored inside req.body
+* @description gets all Visits for each pet
+* @requirements : a pets array stored inside res.locals
 */
 visitsController.getVisits = (req, res, next) => {
   console.log('\n*********** visitsController.getVisits ****************', `\nMETHOD: ${req.method} \nENDPOINT: '${req.url}' \nBODY: ${JSON.stringify(req.body)} \nLOCALS: ${JSON.stringify(res.locals)} `);
-
-  const { pets } = res.locals;
-  // owner ID
-  const { id } = res.locals.owner;
-
-  if (pets) {
-    // pets.forEach((pet) => {
-    //   db.query(visitQuery.getVisit, [pet.id])
-    //     .then((visitList) => {
-    //       console.log(`VISIT FROM ${pet.id}: `, visitList.rows)
-    //     })
-    //     .catch((err) => next(err))
-    // })
-
-    const promises = pets.map((pet) => db.query(visitQuery.getVisit, [pet.id]));
-    Promise.all(promises)
-    .then((visitList) => {
-      visitList.forEach((visit) => {
-        console.log(`VISIT: `, visit.rows)
-        // ! Recieving 
-        //  VISIT:  []
-        //  VISIT:  []
-        //  VISIT:  [ { visit_id: 1, date: '08/20/2019', notes: 'check-up' },
-        //  { visit_id: 2, date: '06/14/2018', notes: 'yearly check-up' } ]
-        //  VISIT:  []
+  const { passwordMatch, profileMatch } = res.locals;
+  
+  if (profileMatch && passwordMatch) {
+    const { pets } = res.locals;
+    if (pets) {
+      // queries for visits for each pet, returning unresolved promises
+      // combinedPromises = [<Promise>, <Promise>, ...]
+      const combinedPromises = pets.map((pet) => db.query(visitQuery.getVisit, [pet.id]));
+      Promise.all(combinedPromises)
+        .then((visitList) => {
+          /**
+           * @visit is a single visit object
+           * @index is used to get a current pet to add a visits property to with the 
+           * value being an array of visit objects
+           */
+          visitList.forEach((visit, index) => {
+            // visit.rows is an array of visits 
+            // [ {id: 1, date: '08/10/2019, notes: 'stomach issue'}, ...]
+            pets[index].visits = visit.rows;
+          })
+          return next()
         })
-      })
-      .catch((err) => next(err))
-    next()
+        .catch((err) => next(err))
+    } else {
+      // this return is for no pets inside res.locals
+      return next();
+    }
+  } else {
+    // this return is if profile & password match fails
+    return next();
   }
+
 }
 
 
