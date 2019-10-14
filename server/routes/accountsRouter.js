@@ -22,7 +22,7 @@ router.post('/login',
   petsController.getPets, 
   visitsController.getVisits, 
   (req, res) => {
-    db.end(() => console.log('\n ********** Closed pool *********'))
+    // db.end(() => console.log('\n ********** Closed pool *********'))
     if (res.locals.profileMatch) {
       if (res.locals.passwordMatch) {
         const { owner, pets } = res.locals;
