@@ -4,22 +4,23 @@ const db = require('../../database/database');
 
 /**
  * @description gets all Pets from a single user(owner)
- * @requirements : a owner_id stored inside res.locals
+ * @requirements : a owner_id(id) stored inside res.locals
  */
 petsController.getPets = (req, res, next) => {
   console.log('\n*********** petsController.getPets ****************', `\nMETHOD: ${req.method} \nENDPOINT: '${req.url}' \nBODY: ${JSON.stringify(req.body)} \nLOCALS: ${JSON.stringify(res.locals)} `);
 
-  // NOTES: owner_id will be retrieved from a user logging in
-  // const { id } = res.locals.owner;
-  const id = 2;
+  // NOTES: id will be retrieved from a user logging in
+  const { id } = res.locals.owner;
+  const { passwordMatch, profileMatch } = res.locals;
 
-  if (id) {
+  if (profileMatch && passwordMatch) {
     db.query(petQuery.getPetsFromOwner, [id])
       .then((petList) => {
+        // successful query
         res.locals.pets = petList.rows;
         return next();
       })
-      .catch((err) => next(err));
+      .catch((petQueryErr) => next(petQueryErr));
   }
 };
 
@@ -38,12 +39,14 @@ petsController.addPet = (req, res, next) => {
   // const { vetID } = res.locals;
 
   if (req.body.pet) {
+    // if vetID exist then we query normally otherwise we query without the vet_id column added
     const addPet = vetID ? petQuery.addPet : petQuery.addPetWithoutVet;
-    console.log("----------------------------", petQuery);
+
     const petData = vetID ? [name, type, gender, spayed, birthYear, ownerID, vetID] : [name, type, gender, spayed, birthYear, ownerID];
     db.query(addPet, petData)
       .then((newPet) => {
-        res.locals.newPet = newPet.rows;
+        // successful query
+        res.locals.newPet = newPet.rows[0];
         return next();
       })
       .catch((err) => next(err));
