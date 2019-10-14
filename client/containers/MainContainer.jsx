@@ -32,7 +32,7 @@ class MainContainer extends Component {
     super(props);
 
     this.verifyUser = this.verifyUser.bind(this);
-    this.addNewUser = this.verifyUser.bind(this);
+    this.addNewUser = this.addNewUser.bind(this);
   }
 
 
@@ -42,6 +42,7 @@ class MainContainer extends Component {
   //  (2) on successfull login, dispatch the reponse big ass object 
   //      to the reducer
   verifyUser (event) {
+    console.log("verify user");
     event.preventDefault();   
     const form = document.getElementById("loginForm");
     const email = form[0].value;

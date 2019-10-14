@@ -13,7 +13,9 @@
 import React, {Component} from 'react';
 
 
-const Signup = (props) => (
+const Signup = (props) => {
+  console.log(props)
+  return (
   <div>
     signup form:
     <form id = "signupForm" onSubmit = { (event) => props.newUser(event)}>
@@ -33,6 +35,7 @@ const Signup = (props) => (
     </form>
     <input type="button" value="back to login" onClick = { () => props.publicPage("login")} ></input>
   </div>
-)
+
+)}
 
 export default Signup;
