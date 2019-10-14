@@ -10,15 +10,16 @@
  * ***********************************
  */
 
-import React, {Component} from 'react';
-import {connect} from 'react-redux';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import * as actions from '../actions/actions';
 
-const mapDispatchToProps = dispatch => ({
-  login: (email, password) => dispatch(actions.login(email, password))
-})
+const mapDispatchToProps = (dispatch) => ({
+  login: (email, password) => dispatch(actions.login(email, password)),
+});
 
 const Login = () => (
   <div>Truck yeah</div>
-)
+);
 
-export default connect(null, mapDispatchToProps)(Login)
+export default connect(null, mapDispatchToProps)(Login);
