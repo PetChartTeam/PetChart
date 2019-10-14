@@ -10,16 +10,27 @@
  * ***********************************
  */
 
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import * as actions from '../actions/actions';
+import React, {Component} from 'react';
 
-const mapDispatchToProps = (dispatch) => ({
-  login: (email, password) => dispatch(actions.login(email, password)),
-});
+//return content to render for the login page
+const Login = (props) => {
+  
+  return (
+    <div>
+      login form:
+      <form id = "loginForm" onSubmit = { (event) => props.saveProfile(event)} >
+        <label> Email: </label>
+        <input type="input" id = "email"></input>
+        <br></br>
+        <label> password: </label>
+        <input type="input" id = "password"></input>
+        <br></br>
+        <input type="submit" value="login"></input>
+      </form>
+      <input type="submit" value="Go to signup" onClick = { () => props.publicPage("signup")} ></input>
+    </div>
+  )
+}
 
-const Login = () => (
-  <div>Truck yeah</div>
-);
 
-export default connect(null, mapDispatchToProps)(Login);
+export default Login;

@@ -13,3 +13,5 @@ export const LOGIN = 'LOGIN';
 export const SIGNUP = 'SIGNUP';
 export const CHANGE_DB_PAGE = 'CHANGE_DB_PAGE';
 export const SAVE_PET = 'SAVE_PET';
+export const PUBLIC_PAGE = 'PUBLIC_PAGE';
+export const SAVE_PROFILE = 'SAVE_PROFILE';

@@ -13,7 +13,7 @@ accountsController.createAccount = (req, res, next) => {
 
       const query = {
         name: 'add-user',
-        text: 'INSERT INTO owners (first_name, last_name, email, password) VALUES ($1, $2, $3, $4)',
+        text: 'INSERT INTO owners (first_name, last_name, email, password) VALUES ($1, $2, $3, $4) RETURNING *',
         values: [firstName, lastName, email, hash],
         rowMode: 'array',
       };
@@ -26,6 +26,7 @@ accountsController.createAccount = (req, res, next) => {
           errorObj.message = detail;
           return next(errorObj);
         }
+
         console.log('create account success: ', success);
         return next();
       });

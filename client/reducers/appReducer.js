@@ -183,7 +183,8 @@ const initialState = {
   appPage: 'dashboard',
   dashboardPage: 'home',
   ownerName: null,
-  userProfile: dummyPet,
+
+  userProfile: null,
   activePet: {
     id: null,
     name: null,
@@ -200,28 +201,22 @@ const initialState = {
 };
 
 
-const appReducer = (state = initialState, action) => {
-  switch (action.type) {
-    case types.LOGIN:
-      // send POST to server with credentials
+const appReducer = (state=initialState, action) => {
+  
+  switch(action.type) {
+    case types.PUBLIC_PAGE:
+      
+      const newPage = action.payload;
 
-      // if success, update state with pet info and appPage = dashboard
+      return {
+        ...state,
+        appPage: newPage,
+      };
 
-      // if failure/error, update state with appPage = signup + signup message
-      console.log('login type successful');
-      return state;
-    case types.SIGNUP:
-      // send POST to server with credentials/reg info
+      //return state;
 
-      // if success update state with appPage = dashboard
-
-      // if failure/error, update state with error message
-      console.log('signup type successful');
-      return state;
     case types.CHANGE_DB_PAGE: {
-      // if payload.pageName = 'home', update state with dashboardPage = home and activePet = null
 
-      // if payload.pageName = 'profile', update state with dashboardPage = profile and activePet = payload.activePet
 
       console.log('change db page successful');
       const { dashboardPage, activePet } = action.payload;
@@ -251,6 +246,23 @@ const appReducer = (state = initialState, action) => {
     default:
       console.log('default state: ', state);
       return state;
+
+    case types.SAVE_PROFILE:
+        
+      //alert('user profile loaded!')
+
+      const newUserProfile = action.payload;
+
+      return {
+        ...state,
+        userProfile: newUserProfile,
+      };
+
+    default:
+       
+      return state
+      break;
+
   }
 };
 
