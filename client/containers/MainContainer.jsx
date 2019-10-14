@@ -13,18 +13,75 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Login from '../components/Login.jsx'; 
+import Signup from '../components/Signup.jsx';
+import * as actions from '../actions/actions';
+import { type } from 'os';
 
 const mapStateToProps = (state) => ({
   appPage: state.app.appPage,
 });
 
-const MainContainer = (props) => {
+const mapDispatchToProps = dispatch => ({
+  //login: (email, password) => dispatch(actions.login(email, password))
+  publicPage: (newPage) => dispatch(actions.changePublicPage(newPage)),
+  createUserProfile: (profile) => dispatch(actions.saveProfile(profile))
+})
+
+class MainContainer extends Component {
+  constructor(props) {
+    super(props);
+
+    this.verifyUser = this.verifyUser.bind(this);
+  }
+
+  verifyUser (event) {
+    event.preventDefault();   
+    const form = document.getElementById("loginForm");
+    const email = form[0].value;
+    const password = form[1].value;
+    const credentials = {email, password};
+
+    console.log(credentials)
+
+    new Promise(function(resolve, reject) {
+      setTimeout(function() {
+        resolve('foo');
+      }, 1000);
+    })
+    .then(function(resolve){
+        alert(resolve);
+        console.log('checking props',this.props);
+        this.props.createUserProfile('userProfile')
+      }
+    )
+    .catch(err => console.log(err));
+
+    /*//package into object
+    let method = 'POST';
+    fetch('/placeholder', {
+        method,
+        body: JSON.stringify({email, password}),
+        headers: {'content-type': 'application/json'},
+      })
+      .then(res => res.json())
+      //response needs to be status 200
+      //if not, need to alert the user with the error
+      //else pass response to dispetcher
+      .then(userProfile => this.props.createUserProfile(userProfile)) //dispatch pets to reducer
+      .catch(err => console.log('getProfile: ERROR: ', err)
+  
+      );
+    }*/
+  }
+
+  render() {
+
     // render different components depending on app state
-    
-    switch (props.appPage) {
+    //console.log(props);
+    switch (this.props.appPage) {
       case 'login':
         return (
-          <Login />
+          <Login publicPage = {this.props.publicPage} saveProfile = {this.verifyUser}/>
         );
       case 'dashboard':
         return (
@@ -32,13 +89,38 @@ const MainContainer = (props) => {
         );
       case 'signup':
         return (
-          <Signup />
+          <Signup publicPage = {this.props.publicPage}/>
         );
       default:
         console.log('the props.appPage is undefined')
         break;
     }
+  }
 }
+
+
+
+// const MainContainer = (props) => {
+//     // render different components depending on app state
+//     //console.log(props);
+//     switch (props.appPage) {
+//       case 'login':
+//         return (
+//           <Login publicPage = {props.publicPage} saveProfile = {verifyUser}/>
+//         );
+//       case 'dashboard':
+//         return (
+//           <Dashboard />
+//         );
+//       case 'signup':
+//         return (
+//           <Signup publicPage = {props.publicPage}/>
+//         );
+//       default:
+//         console.log('the props.appPage is undefined')
+//         break;
+//     }
+// }
 
 // class App extends Component {
 //   constructor(props) {
@@ -66,4 +148,4 @@ const MainContainer = (props) => {
 //   }
 // }
 
-export default connect(mapStateToProps, null)(MainContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(MainContainer);

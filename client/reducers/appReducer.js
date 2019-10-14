@@ -15,13 +15,24 @@ const initialState = {
   appPage: 'login',
   dashboardPage: 'home',
   ownerName: null,
-  pets: null,
+  uderProfile: null,
   activePet: null,
 }
 
 
 const appReducer = (state=initialState, action) => {
+  
   switch(action.type) {
+    case types.PUBLIC_PAGE:
+      
+      const newPage = action.payload;
+
+      return {
+        ...state,
+        appPage: newPage,
+      };
+
+      //return state;
     case types.LOGIN:
       // send POST to server with credentials
 
@@ -48,8 +59,12 @@ const appReducer = (state=initialState, action) => {
       // if pet exists in state
 
         // send PATCH request with payload
+    case types.SAVE_PROFILE:
+        
+      alert('user profile reducer path')
+      return state;
     default:
-      
+       
       return state
       break;
   }
