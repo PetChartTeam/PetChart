@@ -17,7 +17,17 @@ petsController.getPets = (req, res, next) => {
     db.query(petQuery.getPetsFromOwner, [id])
       .then((petList) => {
         // successful query
-        res.locals.pets = petList.rows;
+        const newPetList = petList.rows.map((pet) => {
+          // switching keys for each pet from snake_case to camelCase
+          const {
+ pet_id, name, type, gender, spayed, birth_year, vet_id 
+} = pet;
+          return {
+ id: pet_id, name, type, gender, spayed, birthYear: birth_year, vetID: vet_id 
+};
+        });
+
+        res.locals.pets = newPetList;
         return next();
       })
       .catch((petQueryErr) => next(petQueryErr));
@@ -27,8 +37,9 @@ petsController.getPets = (req, res, next) => {
 /**
  * @description adds a Pet from a single user(owner) to the database
  * (vet_id is optional, owner_id must be required)
- * @requirements : a owner_id stored inside res.locals
- * @optionals : a vet_id stored inside res.locals
+ * @requirements : a owner_id stored inside req.body
+ * @optionals : a vet_id stored inside req.body
+ * @body : { pet: {...} }
  */
 petsController.addPet = (req, res, next) => {
   console.log('\n*********** petsController.addPet ****************', `\nMETHOD: ${req.method} \nENDPOINT: '${req.url}' \nBODY: ${JSON.stringify(req.body)} \nLOCALS: ${JSON.stringify(res.locals)} `);
@@ -48,13 +59,15 @@ petsController.addPet = (req, res, next) => {
       .then((newPet) => {
         console.log('made it inside query');
         // successful query
-        res.locals.newPet = newPet.rows[0];
+        const {
+ name, type, gender, spayed, birth_year, owner_id, vet_id 
+} = newPet.rows[0];
+        res.locals.newPet = {
+ name, type, gender, spayed, birthYear: birth_year, ownerID: owner_id, vetID: vet_id 
+};
         return next();
       })
-      .catch((err) => {
-        console.log('query error: ', err);
-        next(err);
-      });
+      .catch((petQueryErr) => next(petQueryErr));
   }
 };
 
