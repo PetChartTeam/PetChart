@@ -14,18 +14,21 @@ petsController.getPets = (req, res, next) => {
   if (profileMatch && passwordMatch) {
     // NOTES: id will be retrieved from a user logging in
     const { id } = res.locals.owner;
-    db.query(petQuery.getPetsFromOwner, [id])
-    .then((petList) => {
-      // successful query
-      const newPetList = petList.rows.map(pet => {
-        // switching keys for each pet from snake_case to camelCase
-        const { pet_id, name, type, gender, spayed, birth_year, vet_id} = pet;
-        return { id: pet_id, name, type, gender, spayed, birthYear: birth_year, vetID: vet_id };
-      });
-        res.locals.pets = newPetList;
-        return next();
+    db.connect((err, client, release) => {
+      client.query(petQuery.getPetsFromOwner, [id])
+      .then((petList) => {
+        release()
+        // successful query
+        const newPetList = petList.rows.map(pet => {
+          // switching keys for each pet from snake_case to camelCase
+          const { pet_id, name, type, gender, spayed, birth_year, vet_id} = pet;
+          return { id: pet_id, name, type, gender, spayed, birthYear: birth_year, vetID: vet_id };
+        });
+          res.locals.pets = newPetList;
+          return next();
+      })
+      .catch((petQueryErr) => next(petQueryErr));
     })
-    .catch((petQueryErr) => next(petQueryErr));
   } else {
     return next();
   }
@@ -50,14 +53,17 @@ petsController.addPet = (req, res, next) => {
     // if vetID exist then we query normally otherwise we query without the vet_id column added
     const addPet = vetID ? petQuery.addPet : petQuery.addPetWithoutVet;
     const petData = vetID ? [name, type, gender, spayed, birthYear, ownerID, vetID] : [name, type, gender, spayed, birthYear, ownerID];
-    db.query(addPet, petData)
-      .then((newPet) => {
-        // successful query
-        const { pet_id, name, type, gender, spayed, birth_year, owner_id, vet_id} = newPet.rows[0];
-        res.locals.newPet = { id: pet_id, name, type, gender, spayed, birthYear: birth_year, ownerID: owner_id, vetID: vet_id };
-        return next();
-      })
-      .catch((petQueryErr) => next(petQueryErr));
+    db.connect((err, client, release) => {
+      client.query(addPet, petData)
+        .then((newPet) => {
+          release();
+          // successful query
+          const { pet_id, name, type, gender, spayed, birth_year, owner_id, vet_id} = newPet.rows[0];
+          res.locals.newPet = { id: pet_id, name, type, gender, spayed, birthYear: birth_year, ownerID: owner_id, vetID: vet_id };
+          return next();
+        })
+        .catch((petQueryErr) => next(petQueryErr));
+    })
   }
 };
 

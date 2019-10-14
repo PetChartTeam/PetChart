@@ -18,18 +18,24 @@ accountsController.createAccount = (req, res, next) => {
         rowMode: 'array',
       };
 
-      db.query(query, (err, success) => {
-
+      db.connect((err, client, release) => {
         if (err) {
-          const { detail } = err;
-          const errorObj = {};
-          errorObj.message = detail;
-          return next(errorObj);
+          err.message = 'ERROR inside createAccount db.connect: ';
+          return next(err.message)
         }
-
-        console.log('create account success: ', success);
-        return next();
-      });
+        client.query(query, (err, success) => {
+          release()
+          if (err) {
+            const { detail } = err;
+            const errorObj = {};
+            errorObj.message = detail;
+            return next(errorObj);
+          }
+  
+          console.log('create account success: ', success);
+          return next();
+        });
+      })
     });
 };
 
@@ -43,53 +49,55 @@ accountsController.login = (req, res, next) => {
   };
 
   // console.log('this is the hash query obj: ', hashQuery);
-
-  db.query(profileQuery, (profileQueryErr, profile) => {
-
-    if (profileQueryErr) {
-      console.log('error from password retrievel query: ', profileQueryErr);
-      return next(profileQueryErr);
-    }
-    // test if the profile query returned a saved profile
-    // query always returns an array
-    // if profile doesn't exist, the array will be empty
-    // query response comes in profile.rows array -> values of array are objs
-    if (profile.rows[0]) {
-      // this is the response obj if the profile exists
-      res.locals.profileMatch = true;
-
-      // run a bcrypt comparison of req.body.password with encrypted password
-      bcrypt.compare(password, profile.rows[0].password, (bcryptErr, passwordMatch) => {
-
-        if (bcryptErr) {
-          console.log('error from bcrypt compare: ', bcryptErr);
-          return next(bcryptErr);
-        }
-
-        // bcrypt compare returns a boolean, save it as a property on the res.locals obj
-        res.locals.passwordMatch = passwordMatch;
-
-        // if bcrypt.compare returns false, we don't want to save any profile info
-        // and move to the next middleware
-        if (!passwordMatch) {
+  db.connect((err, client, release) => {
+    client.query(profileQuery, (profileQueryErr, profile) => {
+      release();
+      if (profileQueryErr) {
+        console.log('error from password retrievel query: ', profileQueryErr);
+        return next(profileQueryErr);
+      }
+      // test if the profile query returned a saved profile
+      // query always returns an array
+      // if profile doesn't exist, the array will be empty
+      // query response comes in profile.rows array -> values of array are objs
+      if (profile.rows[0]) {
+        // this is the response obj if the profile exists
+        res.locals.profileMatch = true;
+  
+        // run a bcrypt comparison of req.body.password with encrypted password
+        bcrypt.compare(password, profile.rows[0].password, (bcryptErr, passwordMatch) => {
+  
+          if (bcryptErr) {
+            console.log('error from bcrypt compare: ', bcryptErr);
+            return next(bcryptErr);
+          }
+  
+          // bcrypt compare returns a boolean, save it as a property on the res.locals obj
+          res.locals.passwordMatch = passwordMatch;
+  
+          // if bcrypt.compare returns false, we don't want to save any profile info
+          // and move to the next middleware
+          if (!passwordMatch) {
+            return next();
+          }
+          // if bcrypt.compare returns true
+          // save all of the query profile data into res.locals obj
+          res.locals.owner = {
+            id: profile.rows[0].owner_id,
+            firstName: profile.rows[0].first_name,
+            lastName: profile.rows[0].last_name,
+            email: profile.rows[0].email,
+          };
           return next();
-        }
-        // if bcrypt.compare returns true
-        // save all of the query profile data into res.locals obj
-        res.locals.owner = {
-          id: profile.rows[0].owner_id,
-          firstName: profile.rows[0].first_name,
-          lastName: profile.rows[0].last_name,
-          email: profile.rows[0].email,
-        };
+        });
+      } else {
+        // this is the response obj if the profile query returned an empty obj -> profile doesn't exist
+        res.locals.profileMatch = false;
         return next();
-      });
-    } else {
-      // this is the response obj if the profile query returned an empty obj -> profile doesn't exist
-      res.locals.profileMatch = false;
-      return next();
-    }
-  });
+      }
+    });
+
+  })
 };
 
 module.exports = accountsController;
