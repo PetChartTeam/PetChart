@@ -43,35 +43,34 @@ class MainContainer extends Component {
 
     console.log(credentials)
 
-    new Promise(function(resolve, reject) {
+    /*new Promise(function(resolve, reject) {
       setTimeout(function() {
         resolve('foo');
       }, 1000);
     })
-    .then(function(resolve){
+    .then(resolve => {
         alert(resolve);
         console.log('checking props',this.props);
         this.props.createUserProfile('userProfile')
       }
     )
-    .catch(err => console.log(err));
+    .catch(err => console.log(err));*/
 
-    /*//package into object
+    //package into object
     let method = 'POST';
-    fetch('/placeholder', {
+    console.log(credentials)
+    fetch('accounts/register', {
         method,
-        body: JSON.stringify({email, password}),
-        headers: {'content-type': 'application/json'},
+        body: JSON.stringify(credentials),
+        headers: {'Content-Type': 'application/json'},
       })
-      .then(res => res.json())
-      //response needs to be status 200
-      //if not, need to alert the user with the error
-      //else pass response to dispetcher
-      .then(userProfile => this.props.createUserProfile(userProfile)) //dispatch pets to reducer
-      .catch(err => console.log('getProfile: ERROR: ', err)
-  
-      );
-    }*/
+      .then(res => res.text())
+      .then(userProfile => {
+        console.log(userProfile);
+        this.props.createUserProfile('userProfile')
+      }) //dispatch pets to reducer
+      .catch(err => console.log('getProfile: ERROR: ', err));
+    
   }
 
   render() {
