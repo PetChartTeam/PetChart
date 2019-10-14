@@ -61,7 +61,7 @@ const appReducer = (state=initialState, action) => {
         // send PATCH request with payload
     case types.SAVE_PROFILE:
         
-      alert('user profile loaded!')
+      //alert('user profile loaded!')
 
       const newUserProfile = action.payload;
 
