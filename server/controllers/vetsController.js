@@ -22,6 +22,7 @@ vetsController.searchVets = (req, res, next) => {
       return next(searchErr);
     }
 
+    // NEED TO FINISH THIS FUNCTIONALITY!!!
     res.locals.vets = vets.rows;
 
     return next();
