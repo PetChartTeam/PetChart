@@ -17,7 +17,13 @@ petsController.getPets = (req, res, next) => {
     db.query(petQuery.getPetsFromOwner, [id])
       .then((petList) => {
         // successful query
-        res.locals.pets = petList.rows;
+        const newPetList = petList.rows.map(pet => {
+          // switching keys for each pet from snake_case to camelCase
+          const { pet_id, name, type, gender, spayed, birth_year, vet_id} = pet;
+          return { id: pet_id, name, type, gender, spayed, birthYear: birth_year, vetID: vet_id };
+        });
+
+        res.locals.pets = newPetList;
         return next();
       })
       .catch((petQueryErr) => next(petQueryErr));
