@@ -5,6 +5,7 @@ const accountsRouter = require('./routes/accountsRouter');
 const petsRouter = require('./routes/petsRouter');
 const vetsRouter = require('./routes/vetsRouter');
 const visitsRouter = require('./routes/visitsRouter');
+const surgeryRouter = require('./routes/surgeryRouter');
 
 const app = express();
 
@@ -28,6 +29,8 @@ app.use('/pets', petsRouter);
 app.use('/vets', vetsRouter);
 
 app.use('/visits', visitsRouter);
+
+app.use('/surgeries', surgeryRouter);
 
 app.use('/build', express.static(path.resolve(__dirname, '../build')));
 

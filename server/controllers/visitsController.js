@@ -9,7 +9,7 @@ const db = require('../../database/database');
 * @optionals : a vet_id stored inside req.body
 */
 visitsController.createVisit = (req, res, next) => {
-  console.log('\n*********** visitsController.createVisits ****************', `\nMETHOD: ${req.method} \nENDPOINT: '${req.url}' \nBODY: ${JSON.stringify(req.body)} \nLOCALS: ${JSON.stringify(res.locals)} `);
+  console.log('\n*********** visitsController.createVisit ****************', `\nMETHOD: ${req.method} \nENDPOINT: '${req.url}' \nBODY: ${JSON.stringify(req.body)} \nLOCALS: ${JSON.stringify(res.locals)} `);
   // Might add a file key later
   const { date, notes, petID, vetID } = req.body.visit;
 
