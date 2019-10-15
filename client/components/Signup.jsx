@@ -13,29 +13,75 @@
 import React, {Component} from 'react';
 
 
-const Signup = (props) => {
-  console.log(props)
-  return (
-  <div>
-    signup form:
-    <form id = "signupForm" onSubmit = { (event) => props.newUser(event)}>
-      <label> First Name: </label>
-      <input type="input" id = "email"></input>
-      <br></br>
-      <label> Last Name: </label>
-      <input type="input" id = "email"></input>
-      <br></br>
-      <label> Email: </label>
-      <input type="input" id = "email"></input>
-      <br></br>
-      <label> Password: </label>
-      <input type="input" id = "password"></input>
-      <br></br>
-      <input type="submit" value="create user name"></input>
-    </form>
-    <input type="button" value="back to login" onClick = { () => props.publicPage("login")} ></input>
-  </div>
+class Signup extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      role: null,
+    }
+    this.handleClick = this.handleClick.bind(this);
+  }
 
-)}
+  handleClick (e) {
+    this.setState({role: e.currentTarget.value})
+  }
+
+  render () {
+    if (this.state.role === 'Vet') {
+      return (
+      <div>
+        Signup Form:<br />
+        <form id = "signupForm" onSubmit = { (event) => this.props.newUser(event)}>
+          <label><input type="radio" onChange={(e) => this.handleClick(e)} required name="role" value="Owner" />Owner</label>
+          <label><input type="radio" onChange={(e) => this.handleClick(e)} required name="role" value="Vet" />Vet</label>
+          <br />
+          <label> First Name: </label>
+          <input type="input" required id = "firstName"></input>
+          <br></br>
+          <label> Last Name: </label>
+          <input type="input" required id = "lastName"></input>
+          <br></br>
+          <label> Vet Practice: </label>
+          <input type="input" required id = "vetPractice"></input>
+          <br></br>
+          <label> Email: </label>
+          <input type="input" required id = "email"></input>
+          <br></br>
+          <label> Password: </label>
+          <input type="password" required id = "password"></input>
+          <br></br>
+          <input type="submit" value="Create User Name"></input>
+        </form>
+        <input type="button" value="Back to Login" onClick = { () => this.props.publicPage("login")} ></input>
+      </div>
+    )
+  }
+  else {
+    return (
+      <div>
+        Signup Form:<br />
+        <form id = "signupForm" onSubmit = { (event) => this.props.newUser(event)}>
+          <label><input type="radio" onChange={(e) => this.handleClick(e)} required name="role" value="Owner" />Owner</label>
+          <label><input type="radio" onChange={(e) => this.handleClick(e)} required name="role" value="Vet" />Vet</label>
+          <br />
+          <label> First Name: </label>
+          <input type="input" required id = "firstName"></input>
+          <br></br>
+          <label> Last Name: </label>
+          <input type="input" required id = "lastName"></input>
+          <br></br>
+          <label> Email: </label>
+          <input type="input" required id = "email"></input>
+          <br></br>
+          <label> Password: </label>
+          <input type="password" required id = "password"></input>
+          <br></br>
+          <input type="submit" value="Create User Name"></input>
+        </form>
+        <input type="button" value="Back to Login" onClick = { () => this.props.publicPage("login")} ></input>
+      </div>
+    )}
+  }
+}
 
 export default Signup;

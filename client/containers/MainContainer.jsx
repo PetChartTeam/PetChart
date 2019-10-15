@@ -19,6 +19,7 @@ import Signup from '../components/Signup.jsx';
 import Dashboard from './Dashboard.jsx';
 import * as actions from '../actions/actions';
 import emptyPet from '../constants/emptyPetObj';
+import { isNullOrUndefined } from 'util';
 
 const mapStateToProps = (state) => ({
   appPage: state.app.appPage,
@@ -47,9 +48,10 @@ class MainContainer extends Component {
     console.log('verify user');
     event.preventDefault();
     const form = document.getElementById('loginForm');
+    const role = document.querySelector('input[name="role"]:checked').value
     const email = form[0].value;
     const password = form[1].value;
-    const credentials = { email, password };
+    const credentials = { email, password, role };
 
     // console.log(credentials)
 
@@ -83,16 +85,33 @@ class MainContainer extends Component {
     //  (2) redirect the user back to the login page to login
     event.preventDefault();
     const form = document.getElementById('signupForm');
-    const firstName = form[0].value;
-    const lastName = form[1].value;
-    const email = form[2].value;
-    const password = form[3].value;
-    const createUser = {
-      firstName, lastName, email, password,
-    };
+    const roleSwitch = document.querySelector('input[name="role"]:checked').value
+
+    let createUser
+
+    if (roleSwitch === 'Vet') { 
+      const firstName = form[2].value;
+      const lastName = form[3].value;
+      const practice = form[4].value;
+      const email = form[5].value;
+      const password = form[6].value;
+      createUser = {
+        firstName, lastName, practice, email, password,
+      };
+    }
+    else {
+      const firstName = form[2].value;
+      const lastName = form[3].value;
+      const email = form[4].value;
+      const password = form[5].value;
+      createUser = {
+        firstName, lastName, email, password,
+      };
+    }
+
     const method = 'POST';
 
-    // console.log(createUser)
+    console.log(createUser)
 
     fetch('accounts/register', {
       method,
