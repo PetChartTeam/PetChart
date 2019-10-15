@@ -98,7 +98,7 @@ accountsController.login = (req, res, next) => {
       }
     });
 
-  })
+  });
 };
 
 module.exports = accountsController;

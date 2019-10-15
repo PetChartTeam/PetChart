@@ -3,6 +3,7 @@ const router = require('express').Router();
 const accountsController = require('../controllers/accountsController');
 const petsController = require('../controllers/petsController');
 const visitsController = require('../controllers/visitsController');
+const surgeryController = require('../controllers/surgeryController');
 
 router.post('/register', accountsController.createAccount, (req, res) => {
   res.status(200).send('Thanks for the request!');
@@ -19,6 +20,7 @@ router.post('/login',
   accountsController.login,
   petsController.getPets,
   visitsController.getVisits,
+  surgeryController.getSurgeries,
   (req, res) => {
     if (res.locals.profileMatch) {
       if (res.locals.passwordMatch) {
