@@ -17,6 +17,7 @@ import { type } from 'os';
 import Login from '../components/Login.jsx';
 import Signup from '../components/Signup.jsx';
 import Dashboard from './Dashboard.jsx';
+import VetDashboard from './VetDashboard.jsx';
 import * as actions from '../actions/actions';
 import emptyPet from '../constants/emptyPetObj';
 import { isNullOrUndefined } from 'util';
@@ -61,7 +62,8 @@ class MainContainer extends Component {
       method,
       body: JSON.stringify(credentials),
       headers: { 'Content-Type': 'application/json' },
-    })
+    }) // this will probably need rewrite based on response from server
+    // now that we have toggle options for vet and owner
       .then((res) => res.json())
       .then((userProfile) => {
         console.log('userProfile', userProfile);
@@ -74,7 +76,11 @@ class MainContainer extends Component {
         console.log('newPetsArray', newPetsArray);
         newUserProfile.pets = newPetsArray;
         this.props.createUserProfile(newUserProfile);
+        userProfile.role === 'Owner' ? this.props.publicPage('dashboard') : this.props.publicPage('vetDashboard');
       })
+      // removed the dashboard appPage in state and moved it to Main Container.
+      // expect to get an additional variable in response to the MainContainer fetch request
+      // that will state "vet" or "owner" to conditionally render those pages
       .catch((err) => console.log('getProfile: ERROR: ', err));
   }
 
@@ -137,6 +143,10 @@ class MainContainer extends Component {
       case 'dashboard':
         return (
           <Dashboard />
+        );
+      case 'vetDashboard':
+        return (
+          <VetDashboard />
         );
       case 'signup':
         return (
