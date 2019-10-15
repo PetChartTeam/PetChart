@@ -19,6 +19,11 @@ export const login = (email, password) => ({
   },
 });
 
+export const logout = (publicPage) => ({
+  type: types.LOGOUT,
+  payload: publicPage,
+});
+
 export const signup = (firstName, lastName, email, password) => ({
   type: types.SIGNUP,
   payload: {

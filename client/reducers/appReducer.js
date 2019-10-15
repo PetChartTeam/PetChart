@@ -183,7 +183,7 @@ const initialState = {
   appPage: 'login',
   dashboardPage: 'home',
   ownerName: null,
-  userProfile: dummyPet,
+  userProfile: null,
   activePet: emptyPet,
 };
 
@@ -199,7 +199,12 @@ const appReducer = (state = initialState, action) => {
         appPage: newPage,
       };
 
-      // return state;
+    case types.LOGOUT:
+
+      return {
+        ...state,
+        ...initialState,
+      };
 
     case types.CHANGE_DB_PAGE: {
       console.log('change db page successful');

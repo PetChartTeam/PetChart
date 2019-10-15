@@ -23,11 +23,13 @@ const mapStateToProps = (state) => ({
   userProfile: state.app.userProfile,
   dashboardPage: state.app.dashboardPage,
   activePet: state.app.activePet,
+  appPage: state.app.appPage,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   changeDBPage: (pageName, activePet) => dispatch(actions.changeDBPage(pageName, activePet)),
   savePet: (petProfile) => dispatch(actions.savePet(petProfile)),
+  logout: (newPage) => dispatch(actions.logout(newPage)),
 });
 
 class Dashboard extends Component {
@@ -89,7 +91,7 @@ class Dashboard extends Component {
     return (
       // always render Nav component and whatever childPage is set to
       <div>
-        <Nav changeDBPage={this.props.changeDBPage} activatePet={this.activatePet} owner={this.props.userProfile.owner.firstName} pets={this.props.userProfile.pets} />
+        <Nav logout={this.props.logout} changeDBPage={this.props.changeDBPage} activatePet={this.activatePet} owner={this.props.userProfile.owner.firstName} pets={this.props.userProfile.pets} />
         {childPage}
       </div>
     );
