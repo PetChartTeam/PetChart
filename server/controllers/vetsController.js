@@ -15,17 +15,28 @@ vetsController.searchVets = (req, res, next) => {
     /* text: 'SELECT * FROM vets WHERE column = ${params}' */
   };
   // query the db for all available vet info
-  db.query(query, (searchErr, vets) => {
-    if (searchErr) {
-      searchErr.status = 404;
-      searchErr.message = 'error in the vets controller search query';
-      return next(searchErr);
-    }
+  db.connect((err, client, release) => {
+    if (err) {
+      const error = {};
+      error.message = 'error in vets search controller db.connect'
+      return next(error);
+    };
+    client.query(query, (searchErr, vets) => {
+      if (searchErr) {
+        const err = {};
+        err.status = 404;
+        err.message = 'error in the vets controller search query';
+        return next(err);
+      };
 
-    res.locals.vets = vets.rows;
+      // NEED TO FINISH THIS FUNCTIONALITY!!!
+      res.locals.vets = {};
 
-    return next();
-  });
+      // release the instance of the db connection from the db pool
+      release();
+      return next();
+    });
+  })
 };
 
 module.exports = vetsController;
