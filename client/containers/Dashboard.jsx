@@ -18,6 +18,7 @@ import * as actions from '../actions/actions';
 import Home from '../components/Home.jsx';
 import Nav from '../components/Nav.jsx';
 import Profile from '../components/Profile.jsx';
+import AddPet from '../components/AddPet.jsx';
 
 const mapStateToProps = state => ({
   userProfile: state.app.userProfile,
@@ -92,7 +93,17 @@ class Dashboard extends Component {
       case 'profile':
         childPage = (
           <Profile
-            changeDBPage={this.props.changeDBPage}
+            changeDcPage={this.props.changeDBPage}
+            activePet={this.props.activePet}
+            savePet={this.props.savePet}
+            ownerID={this.props.userProfile.owner.id}
+          />
+        );
+        break;
+      case 'add':
+        childPage = (
+          <AddPet
+            changeDcPage={this.props.changeDBPage}
             activePet={this.props.activePet}
             savePet={this.props.savePet}
             ownerID={this.props.userProfile.owner.id}
