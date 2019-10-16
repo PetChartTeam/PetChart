@@ -22,4 +22,10 @@ router.post('/', petsController.addPet, (req, res) => {
   res.json(newPet);
 });
 
+router.delete('/', petsController.deletePet, (req, res) => {
+  const { id } = res.locals;
+  console.log('delete path fired');
+  res.send('delete worked', id);
+});
+
 module.exports = router;

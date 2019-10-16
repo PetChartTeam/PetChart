@@ -10,25 +10,29 @@ petsController.getPets = (req, res, next) => {
   console.log('\n*********** petsController.getPets ****************', `\nMETHOD: ${req.method} \nENDPOINT: '${req.url}' \nBODY: ${JSON.stringify(req.body)} \nLOCALS: ${JSON.stringify(res.locals)} `);
 
   const { passwordMatch, profileMatch } = res.locals;
-  
+
   if (profileMatch && passwordMatch) {
     // NOTES: id will be retrieved from a user logging in
     const { id } = res.locals.owner;
     db.connect((err, client, release) => {
       client.query(petQuery.getPetsFromOwner, [id])
-      .then((petList) => {
-        release()
-        // successful query
-        const newPetList = petList.rows.map(pet => {
+        .then((petList) => {
+          release();
+          // successful query
+          const newPetList = petList.rows.map((pet) => {
           // switching keys for each pet from snake_case to camelCase
-          const { pet_id, name, type, gender, spayed, birth_year, vet_id} = pet;
-          return { id: pet_id, name, type, gender, spayed, birthYear: birth_year, vetID: vet_id };
-        });
+            const {
+              pet_id, name, type, gender, spayed, birth_year, vet_id,
+            } = pet;
+            return {
+              id: pet_id, name, type, gender, spayed, birthYear: birth_year, vetID: vet_id,
+            };
+          });
           res.locals.pets = newPetList;
           return next();
-      })
-      .catch((petQueryErr) => next(petQueryErr));
-    })
+        })
+        .catch((petQueryErr) => next(petQueryErr));
+    });
   } else {
     return next();
   }
@@ -54,21 +58,50 @@ petsController.addPet = (req, res, next) => {
     const addPet = vetID ? petQuery.addPet : petQuery.addPetWithoutVet;
     const petData = vetID ? [name, type, gender, spayed, birthYear, ownerID, vetID] : [name, type, gender, spayed, birthYear, ownerID];
     db.connect((err, client, release) => {
-      console.log("ERROR: ", err);
+      console.log('ERROR: ', err);
       client.query(addPet, petData)
         .then((newPet) => {
           release();
           // successful query
-          const { pet_id, name, type, gender, spayed, birth_year, owner_id, vet_id} = newPet.rows[0];
-          res.locals.newPet = { id: pet_id, name, type, gender, spayed, birthYear: birth_year, ownerID: owner_id, vetID: vet_id };
+          const {
+            pet_id, name, type, gender, spayed, birth_year, owner_id, vet_id,
+          } = newPet.rows[0];
+          res.locals.newPet = {
+            id: pet_id, name, type, gender, spayed, birthYear: birth_year, ownerID: owner_id, vetID: vet_id,
+          };
           return next();
         })
         .catch((petQueryErr) => {
           console.log('petERROR: ', petQueryErr);
           next(petQueryErr);
         });
-    })
+    });
   }
+};
+
+/**
+ * @description deletes single pet from pets table
+ * @requirements : a pet(id) stored inside res.locals
+ */
+
+petsController.deletePet = (req, res, next) => {
+  console.log('\n*********** petsController.deletePet ****************', `\nMETHOD: ${req.method} \nENDPOINT: '${req.url}' \nBODY: ${JSON.stringify(req.body)} \nLOCALS: ${JSON.stringify(res.locals)} `);
+
+  // const { passwordMatch, profileMatch } = res.locals;
+
+  // if (profileMatch && passwordMatch) {
+  const { id } = req.body;// res.locals.owner; // update
+  console.log('id in delete query', id);
+  db.connect((err, client, release) => {
+    client.query(petQuery.deletePet, [id])
+      .then((result) => {
+        console.log('result from petsController', result);
+        release();
+        return next();
+      })
+      .catch((petDeleteErr) => next(petDeleteErr));
+  });
+  // }
 };
 
 module.exports = petsController;

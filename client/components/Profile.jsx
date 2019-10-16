@@ -25,6 +25,7 @@ class Profile extends Component {
     this.addVaccine = this.addVaccine.bind(this);
     this.addSurgery = this.addSurgery.bind(this);
     this.savePet = this.props.savePet.bind(this);
+    this.deletePet = this.deletePet.bind(this);
   }
 
   // grab updated/newly added pet details
@@ -45,22 +46,22 @@ class Profile extends Component {
       birthYear,
       gender,
       spayed,
-      ownerID
+      ownerID,
     };
 
     fetch('/pets/', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ pet: petProfile })
+      body: JSON.stringify({ pet: petProfile }),
     })
-      .then(response => response.json())
-      .then(petObject => {
+      .then((response) => response.json())
+      .then((petObject) => {
         console.log(petObject);
         this.savePet(petObject);
       })
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
   }
 
   // grab visit details from form
@@ -78,7 +79,7 @@ class Profile extends Component {
       date,
       notes,
       vet,
-      file
+      file,
     };
     return this.props.savePet(petProfile);
   }
@@ -94,7 +95,7 @@ class Profile extends Component {
     const petProfile = {
       id: this.props.activePet.id,
       date,
-      name
+      name,
     };
     return this.props.savePet(petProfile);
   }
@@ -110,9 +111,29 @@ class Profile extends Component {
     const petProfile = {
       id: this.props.activePet.id,
       date,
-      name
+      name,
     };
     return this.props.savePet(petProfile);
+  }
+
+  deletePet(id) {
+    // event.preventDefault();
+    console.log('id in deletepetreact is', id);
+
+    // console.log('deletePetDetails activated');
+    fetch('/pets/', {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ id }),
+    })
+      .then((response) => response.json())
+      .then((petObject) => {
+        console.log(petObject);
+        // this.savePet(petObject);
+      })
+      .catch((err) => console.log(err));
   }
 
   render() {
@@ -135,36 +156,69 @@ class Profile extends Component {
         }
         if (activePet.surgeries[i]) {
           surgeriesListItems.push(
-            <Surgery surgery={activePet.surgeries[i]} key={`surgery-${i}`} />
+            <Surgery surgery={activePet.surgeries[i]} key={`surgery-${i}`} />,
           );
         }
       }
     }
 
+    // handleDelete(id){
+    //   fetch('/pets/deletePet', {
+    //     method: 'DELETE',
+    //     body: JSON.stringify(id)
+    //   })
+    // }
+
+
     return (
       <div className="profile-container">
         <section className="profile-header">
           <div className="img-name">
-            <img src={`"${activePet.profilePic}"`} alt="pet profile pic" />
+            {/* <img src={`"${activePet.profilePic}"`} alt="pet profile pic" /> */}
             <h1>{activePet.name}</h1>
             <input type="submit" value="Update Pet Details" />
+            <input
+              type="submit"
+              value="DELETE"
+              onClick={() => {
+                this.deletePet(activePet.id);
+              }}
+            />
+
           </div>
+
+
           <div className="pet-profile-details-container">
             <form className="pet-profile-details-view">
               <label>
-                <strong>Name:</strong> {activePet.name};
+                <strong>Name:</strong>
+                {' '}
+                {activePet.name}
+;
               </label>
               <label>
-                <strong>Type:</strong> {activePet.type};
+                <strong>Type:</strong>
+                {' '}
+                {activePet.type}
+;
               </label>
               <label>
-                <strong>Birth Year:</strong> {activePet.birthYear};
+                <strong>Birth Year:</strong>
+                {' '}
+                {activePet.birthYear}
+;
               </label>
               <label>
-                <strong>Gender:</strong> ${activePet.gender}
+                <strong>Gender:</strong>
+                {' '}
+$
+                {activePet.gender}
               </label>
               <label>
-                <strong>Spayed/Neutered?</strong> {activePet.spayed};
+                <strong>Spayed/Neutered?</strong>
+                {' '}
+                {activePet.spayed}
+;
               </label>
             </form>
           </div>
@@ -188,7 +242,7 @@ class Profile extends Component {
               </div>
               <div className="surgeries-container">
                 <h3>Surgeries</h3>
-                <form className="surgery-form"></form>
+                <form className="surgery-form" />
                 <ul className="surgeries-list">{surgeriesListItems}</ul>
               </div>
             </div>
