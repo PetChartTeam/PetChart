@@ -98,6 +98,7 @@ class Dashboard extends Component {
             changeDcPage={this.props.changeDBPage}
             activePet={this.props.activePet}
             savePet={this.props.savePet}
+            deletePet={this.props.deletePet}
             ownerID={this.props.userProfile.owner.id}
           />
         );

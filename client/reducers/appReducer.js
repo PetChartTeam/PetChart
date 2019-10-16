@@ -241,15 +241,14 @@ const appReducer = (state = initialState, action) => {
 
     case types.DELETE_PET:
       console.log('pet deleted: ', action.payload);
-      const responsePet = action.payload;
+      const responsePetId = action.payload;
       const { userProfile } = state;
-      const petToRemove = {
-        ...emptyPet,
-        ...responsePet
-      };
+      // const petToRemove = {
+      //   ...emptyPet,
+      // };
       // SPLICE OUT PETTOREMOVE FROM USERPROFILE.PETS
       for (let i = 0; i < userProfile.pets; i++) {
-        if (userProfile.pets[i].id === responsePet.id) {
+        if (userProfile.pets[i].id === responsePetId) {
           userProfile.pets.splice(i, 1);
           break;
         }
@@ -268,12 +267,12 @@ const appReducer = (state = initialState, action) => {
     case types.SAVE_PROFILE:
       // alert('user profile loaded!')
 
-      const userProfile = action.payload;
+      const newUserProfile = action.payload;
 
       return {
         ...state,
         appPage: 'dashboard',
-        userProfile
+        userProfile: newUserProfile
       };
 
     default:

@@ -33,14 +33,16 @@ const Home = props => {
   });
   return (
     <div className="home-container">
-      HomePage
-      {petButtons}
+      <div className="home-title">Pets</div>
+      <div className="home-pets">{petButtons}</div>
       {/* <button type="button" onClick={() => props.changeDBPage('profile', emptyPet)}>
         Visit Empty Pet
       </button> */}
-      <button type="button" onClick={() => props.changeDBPage('add', emptyPet)}>
-        Add a Pet
-      </button>
+      <div className="home-add-button">
+        <button type="button" onClick={() => props.changeDBPage('add', emptyPet)}>
+          Add a Pet
+        </button>
+      </div>
     </div>
   );
 };
