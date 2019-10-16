@@ -57,7 +57,7 @@ class AddPet extends Component {
     })
       .then(response => response.json())
       .then(petObject => {
-        console.log(petObject);
+        console.log('WHAT ARE ARE WE GETTING BACK FROM DB ON CREATE?', petObject);
         this.savePet(petObject);
       })
       .catch(err => console.log(err));

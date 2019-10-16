@@ -10,28 +10,33 @@
  * ***********************************
  */
 
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 
 //return content to render for the login page
-const Login = (props) => {
-  
+const Login = props => {
   return (
     <div>
       {/* login form: */}
-      <form id = "loginForm" onSubmit = { (event) => props.saveProfile(event)} >
-        <label> Email: </label>
-        <input type="input" id = "email"></input>
-        <br></br>
-        <label> password: </label>
-        <input type="input" id = "password"></input>
-        <br></br>
-        <input type="submit" value="login"></input>
-        <input type="button" value="Go to signup" onClick = { () => props.publicPage("signup")} ></input>
-      </form>
-      
-    </div>
-  )
-}
+      <form id="loginForm" onSubmit={event => props.saveProfile(event)}>
+        <div id="loginLine1">
+          <label> Email: </label>
+          <input placeholder="email" type="input" id="email"></input>
+        </div>
+        <div id="loginLine2">
+          <label> password: </label>
+          <input placeholder="password" type="input" id="password"></input>
+        </div>
 
+        <input
+          class="loginButton"
+          type="button"
+          value="Sign up"
+          onClick={() => props.publicPage('signup')}
+        ></input>
+        <input class="loginButton" type="submit" value="login"></input>
+      </form>
+    </div>
+  );
+};
 
 export default Login;

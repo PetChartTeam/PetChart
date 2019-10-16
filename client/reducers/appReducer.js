@@ -15,7 +15,7 @@ import emptyPet from '../constants/emptyPetObj';
 const dummyPet = {
   owner: {
     id: 1,
-    firstName: 'Ronald',
+    firstName: 'Ronald'
   },
   pets: [
     {
@@ -26,76 +26,80 @@ const dummyPet = {
       spayed: true,
       birth_year: 2006,
       vet: 'Dr. Lewis',
-      profilePic: 'https://images.pexels.com/photos/356378/pexels-photo-356378.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260',
-      visits: [ // array of 5 most recent visits (if total < 5, fill in the rest as null)
+      profilePic:
+        'https://images.pexels.com/photos/356378/pexels-photo-356378.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260',
+      visits: [
+        // array of 5 most recent visits (if total < 5, fill in the rest as null)
         {
           id: 1,
           date: '12/10/2018',
           notes: 'annual checkup',
           file: '???',
-          vet: 'Dr. Lewis',
+          vet: 'Dr. Lewis'
         },
         {
           id: 2,
           date: '6/8/2018',
           notes: 'removing plastic toy from his stomach',
           file: '???',
-          vet: 'Dr. Lewis',
+          vet: 'Dr. Lewis'
         },
         {
           id: 3,
           date: '12/10/2017',
           notes: 'annual checkup',
           file: '???',
-          vet: 'Dr. Lewis',
+          vet: 'Dr. Lewis'
         },
         {
           id: 4,
           date: '8/6/2017',
           notes: 'knee surgery',
           file: '???',
-          vet: 'Dr. Lewis',
+          vet: 'Dr. Lewis'
         },
         {
           id: 5,
           date: '12/10/2016',
           notes: 'annual checkup',
           file: '???',
-          vet: 'Dr. Lewis',
-        },
+          vet: 'Dr. Lewis'
+        }
       ],
-      surgeries: [ // array of 5 most recent surgeries (if total < 5, fill in the rest as null)
+      surgeries: [
+        // array of 5 most recent surgeries (if total < 5, fill in the rest as null)
         {
           id: 1,
           name: 'knee surgery',
           date: '8/6/2017',
-          vet: 'Dr. Lewis',
+          vet: 'Dr. Lewis'
         },
         {
           id: 2,
           name: 'neutering',
           date: '11/19/2007',
-          vet: 'Dr. Schwartz',
+          vet: 'Dr. Schwartz'
         },
         null,
         null,
-        null,
+        null
       ],
-      vaccines: [ // array of 5 most recent vaccines (if total < 5, fill in the rest as null)
+      vaccines: [
+        // array of 5 most recent vaccines (if total < 5, fill in the rest as null)
         {
           id: 1,
           name: 'influenza',
-          date: '12/10/2018',
+          date: '12/10/2018'
         },
         {
           id: 2,
           name: 'anti-worms',
-          date: '7/31/2014',
+          date: '7/31/2014'
         },
         null,
         null,
-        null,
-      ],
+        null
+      ]
     },
     {
       id: 2,
@@ -105,78 +109,82 @@ const dummyPet = {
       spayed: true,
       birth_year: 2007,
       vet: 'Dr. Palmer',
-      profilePic: 'https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80',
-      visits: [ // array of 5 most recent visits (if total < 5, fill in the rest as null)
+      profilePic:
+        'https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80',
+      visits: [
+        // array of 5 most recent visits (if total < 5, fill in the rest as null)
         {
           id: 1,
           date: '12/10/2018',
           notes: 'annual checkup',
           file: '???',
-          vet: 'Dr. Lewis',
+          vet: 'Dr. Lewis'
         },
         {
           id: 2,
           date: '6/8/2018',
           notes: 'removing plastic toy from his stomach',
           file: '???',
-          vet: 'Dr. Lewis',
+          vet: 'Dr. Lewis'
         },
         {
           id: 3,
           date: '12/10/2017',
           notes: 'annual checkup',
           file: '???',
-          vet: 'Dr. Lewis',
+          vet: 'Dr. Lewis'
         },
         {
           id: 4,
           date: '8/6/2017',
           notes: 'knee surgery',
           file: '???',
-          vet: 'Dr. Lewis',
+          vet: 'Dr. Lewis'
         },
         {
           id: 5,
           date: '12/10/2016',
           notes: 'annual checkup',
           file: '???',
-          vet: 'Dr. Lewis',
-        },
+          vet: 'Dr. Lewis'
+        }
       ],
-      surgeries: [ // array of 5 most recent surgeries (if total < 5, fill in the rest as null)
+      surgeries: [
+        // array of 5 most recent surgeries (if total < 5, fill in the rest as null)
         {
           id: 1,
           name: 'knee surgery',
           date: '8/6/2017',
-          vet: 'Dr. Lewis',
+          vet: 'Dr. Lewis'
         },
         {
           id: 2,
           name: 'neutering',
           date: '11/19/2007',
-          vet: 'Dr. Schwartz',
+          vet: 'Dr. Schwartz'
         },
         null,
         null,
-        null,
+        null
       ],
-      vaccines: [ // array of 5 most recent vaccines (if total < 5, fill in the rest as null)
+      vaccines: [
+        // array of 5 most recent vaccines (if total < 5, fill in the rest as null)
         {
           id: 1,
           name: 'influenza',
-          date: '12/10/2018',
+          date: '12/10/2018'
         },
         {
           id: 2,
           name: 'anti-worms',
-          date: '7/31/2014',
+          date: '7/31/2014'
         },
         null,
         null,
-        null,
-      ],
-    },
-  ],
+        null
+      ]
+    }
+  ]
 };
 
 const initialState = {
@@ -184,36 +192,33 @@ const initialState = {
   dashboardPage: 'home',
   ownerName: null,
   userProfile: null,
-  activePet: emptyPet,
+  activePet: emptyPet
 };
-
 
 const appReducer = (state = initialState, action) => {
   switch (action.type) {
     case types.PUBLIC_PAGE:
-
       const newPage = action.payload;
 
       return {
         ...state,
-        appPage: newPage,
+        appPage: newPage
       };
 
     case types.LOGOUT:
-
       return {
         ...state,
-        ...initialState,
+        ...initialState
       };
 
     case types.CHANGE_DB_PAGE: {
       console.log('change db page successful');
       const { dashboardPage, activePet } = action.payload;
-      return ({
+      return {
         ...state,
         dashboardPage,
-        activePet,
-      });
+        activePet
+      };
     }
     case types.SAVE_PET: {
       console.log('save pet successful: ', action.payload);
@@ -223,26 +228,51 @@ const appReducer = (state = initialState, action) => {
       // spread empty pet object and overwrite with server response in action payload
       const newPet = {
         ...emptyPet,
-        ...responsePet,
+        ...responsePet
       };
       userProfile.pets.push(newPet);
       // still need to update state once server response is update by Mike R
       console.log('pets array: ', userProfile.pets, 'newPet: ', newPet);
       return {
         ...state,
-        userProfile,
-      }; }
+        userProfile
+      };
+    }
+
+    case types.DELETE_PET:
+      console.log('pet deleted: ', action.payload);
+      const responsePetId = action.payload;
+      const { userProfile } = state;
+      // const petToRemove = {
+      //   ...emptyPet,
+      // };
+      // SPLICE OUT PETTOREMOVE FROM USERPROFILE.PETS
+      for (let i = 0; i < userProfile.pets; i++) {
+        if (userProfile.pets[i].id === responsePetId) {
+          userProfile.pets.splice(i, 1);
+          break;
+        }
+      }
+      console.log('pets array: ', userProfile.pets); // make sure pet was removed successfully;
+
+      return {
+        ...state,
+        userProfile
+      };
+
+    case types.UPDATE_PET:
+
+    // expand
 
     case types.SAVE_PROFILE:
-
       // alert('user profile loaded!')
 
-      const userProfile = action.payload;
+      const newUserProfile = action.payload;
 
       return {
         ...state,
         appPage: 'dashboard',
-        userProfile,
+        userProfile: newUserProfile
       };
 
     default:
