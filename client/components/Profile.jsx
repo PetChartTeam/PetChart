@@ -25,6 +25,8 @@ class Profile extends Component {
     this.addVaccine = this.addVaccine.bind(this);
     this.addSurgery = this.addSurgery.bind(this);
     this.savePet = this.props.savePet.bind(this);
+    this.deletePet = this.props.deletePet.bind(this);
+    this.updatePet = this.props.updatePet.bind(this);
   }
 
   // grab updated/newly added pet details

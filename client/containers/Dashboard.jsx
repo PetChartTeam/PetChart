@@ -30,6 +30,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   changeDBPage: (pageName, activePet) => dispatch(actions.changeDBPage(pageName, activePet)),
   savePet: petProfile => dispatch(actions.savePet(petProfile)),
+  deletePet: petProfile => dispatch(actions.deletePet(petProfile)),
+  updatePet: petProfile => dispatch(actions.updatePet(petProfile)),
   logout: newPage => dispatch(actions.logout(newPage))
 });
 
