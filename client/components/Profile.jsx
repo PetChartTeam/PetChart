@@ -25,8 +25,7 @@ class Profile extends Component {
     this.addVaccine = this.addVaccine.bind(this);
     this.addSurgery = this.addSurgery.bind(this);
     this.savePet = this.props.savePet.bind(this);
-    this.deletePet = this.props.deletePet.bind(this);
-    this.updatePet = this.props.updatePet.bind(this);
+    this.deletePet = this.deletePet.bind(this);
   }
 
   // grab updated/newly added pet details
@@ -117,6 +116,26 @@ class Profile extends Component {
     return this.props.savePet(petProfile);
   }
 
+  deletePet(id) {
+    // event.preventDefault();
+    console.log('id in deletepetreact is', id);
+
+    // console.log('deletePetDetails activated');
+    fetch('/pets/', {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ id })
+    })
+      .then(response => response.json())
+      .then(petObject => {
+        console.log('petobj in react is', petObject);
+        // this.savePet(petObject);
+      })
+      .catch(err => console.log(err));
+  }
+
   render() {
     console.log(this.props);
     const { activePet } = this.props;
@@ -143,14 +162,29 @@ class Profile extends Component {
       }
     }
 
+    // handleDelete(id){
+    //   fetch('/pets/deletePet', {
+    //     method: 'DELETE',
+    //     body: JSON.stringify(id)
+    //   })
+    // }
+
     return (
       <div className="profile-container">
         <section className="profile-header">
           <div className="img-name">
-            <img src={`"${activePet.profilePic}"`} alt="pet profile pic" />
+            {/* <img src={`"${activePet.profilePic}"`} alt="pet profile pic" /> */}
             <h1>{activePet.name}</h1>
             <input type="submit" value="Update Pet Details" />
+            <input
+              type="submit"
+              value="DELETE"
+              onClick={() => {
+                this.deletePet(activePet.id);
+              }}
+            />
           </div>
+
           <div className="pet-profile-details-container">
             <form className="pet-profile-details-view">
               <label>
@@ -190,7 +224,7 @@ class Profile extends Component {
               </div>
               <div className="surgeries-container">
                 <h3>Surgeries</h3>
-                <form className="surgery-form"></form>
+                <form className="surgery-form" />
                 <ul className="surgeries-list">{surgeriesListItems}</ul>
               </div>
             </div>
