@@ -130,7 +130,7 @@ class Profile extends Component {
     })
       .then((response) => response.json())
       .then((petObject) => {
-        console.log(petObject);
+        console.log('petobj in react is', petObject);
         // this.savePet(petObject);
       })
       .catch((err) => console.log(err));

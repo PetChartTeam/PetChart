@@ -92,6 +92,8 @@ petsController.deletePet = (req, res, next) => {
   // if (profileMatch && passwordMatch) {
   const { id } = req.body;// res.locals.owner; // update
   console.log('id in delete query', id);
+  res.locals.petId = id;
+  console.log('res.locals.petId in petsController', id);
   db.connect((err, client, release) => {
     client.query(petQuery.deletePet, [id])
       .then((result) => {
