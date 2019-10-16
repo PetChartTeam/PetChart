@@ -16,19 +16,31 @@ import React from 'react';
 import PetNameButton from './PetNameButton.jsx';
 import emptyPet from '../constants/emptyPetObj';
 
-const Home = (props) => {
+const Home = props => {
   console.log('homeprops', props);
 
   const petButtons = [];
   props.pets.forEach((petObj, i) => {
     // console.log(petObj);
-    petButtons.push(<PetNameButton activatePet={props.activatePet} petId={petObj.id} petName={petObj.name} key={`petNav${i}`} />);
+    petButtons.push(
+      <PetNameButton
+        activatePet={props.activatePet}
+        petId={petObj.id}
+        petName={petObj.name}
+        key={`petNav${i}`}
+      />
+    );
   });
   return (
     <div className="home-container">
       HomePage
       {petButtons}
-      <button type="button" onClick={() => props.changeDBPage('profile', emptyPet)}>Add a Pet</button>
+      {/* <button type="button" onClick={() => props.changeDBPage('profile', emptyPet)}>
+        Visit Empty Pet
+      </button> */}
+      <button type="button" onClick={() => props.changeDBPage('add', emptyPet)}>
+        Add a Pet
+      </button>
     </div>
   );
 };
