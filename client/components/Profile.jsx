@@ -26,6 +26,7 @@ class Profile extends Component {
     this.addSurgery = this.addSurgery.bind(this);
     this.savePet = this.props.savePet.bind(this);
     this.deletePet = this.deletePet.bind(this);
+    this.changeDBPage = this.props.changeDBPage.bind(this);
   }
 
   // grab updated/newly added pet details
@@ -133,6 +134,7 @@ class Profile extends Component {
         console.log('petobj in react is', petObject);
         // add petObject number to redux for state update
         this.props.deletePet(petObject);
+        this.changeDBPage('home');
       })
       .catch(err => console.log(err));
   }

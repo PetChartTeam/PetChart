@@ -95,7 +95,7 @@ class Dashboard extends Component {
       case 'profile':
         childPage = (
           <Profile
-            changeDcPage={this.props.changeDBPage}
+            changeDBPage={this.props.changeDBPage}
             activePet={this.props.activePet}
             savePet={this.props.savePet}
             deletePet={this.props.deletePet}
@@ -106,7 +106,7 @@ class Dashboard extends Component {
       case 'add':
         childPage = (
           <AddPet
-            changeDcPage={this.props.changeDBPage}
+            changeDBPage={this.props.changeDBPage}
             activePet={this.props.activePet}
             savePet={this.props.savePet}
             ownerID={this.props.userProfile.owner.id}
