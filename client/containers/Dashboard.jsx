@@ -20,19 +20,19 @@ import Nav from '../components/Nav.jsx';
 import Profile from '../components/Profile.jsx';
 import AddPet from '../components/AddPet.jsx';
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   userProfile: state.app.userProfile,
   dashboardPage: state.app.dashboardPage,
   activePet: state.app.activePet,
-  appPage: state.app.appPage
+  appPage: state.app.appPage,
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   changeDBPage: (pageName, activePet) => dispatch(actions.changeDBPage(pageName, activePet)),
-  savePet: petProfile => dispatch(actions.savePet(petProfile)),
-  deletePet: petProfile => dispatch(actions.deletePet(petProfile)),
-  updatePet: petProfile => dispatch(actions.updatePet(petProfile)),
-  logout: newPage => dispatch(actions.logout(newPage))
+  savePet: (petProfile) => dispatch(actions.savePet(petProfile)),
+  deletePet: (petProfile) => dispatch(actions.deletePet(petProfile)),
+  updatePet: (petProfile) => dispatch(actions.updatePet(petProfile)),
+  logout: (newPage) => dispatch(actions.logout(newPage)),
 });
 
 class Dashboard extends Component {
@@ -83,6 +83,7 @@ class Dashboard extends Component {
         changeDBPage={this.props.changeDBPage}
         pets={this.props.userProfile.pets}
         activatePet={this.activatePet}
+        owner={this.props.userProfile.owner.firstName}
       />
     );
     let childPage = homeComponent;
@@ -118,7 +119,7 @@ class Dashboard extends Component {
     }
     return (
       // always render Nav component and whatever childPage is set to
-      <div>
+      <div id="dashboardWrapper">
         <Nav
           logout={this.props.logout}
           changeDBPage={this.props.changeDBPage}
@@ -134,5 +135,5 @@ class Dashboard extends Component {
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(Dashboard);
