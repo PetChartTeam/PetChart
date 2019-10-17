@@ -6,7 +6,7 @@ module.exports = {
   entry: './client/index.js',
   output: {
     path: path.resolve(__dirname, 'build'),
-    filename: 'bundle.js',
+    filename: 'bundle.js'
   },
   devServer: {
     publicPath: '/build/',
@@ -14,10 +14,10 @@ module.exports = {
     hot: true,
     proxy: [
       {
-        context: ['/register', '/pets', '/login', '/records'],
-        target: 'http://localhost:3000',
-      },
-    ],
+        context: ['/register', '/pets', '/login', '/records', '/accounts', '/build/images'],
+        target: 'http://localhost:3000'
+      }
+    ]
   },
   module: {
     rules: [
@@ -25,16 +25,16 @@ module.exports = {
         test: /\.jsx?$/,
         exclude: /node_modules/,
         loader: 'babel-loader',
-        options: { presets: ['@babel/env', '@babel/react'] },
+        options: { presets: ['@babel/env', '@babel/react'] }
       },
       {
         test: /\.css$/,
-        use: ['style-loader', 'css-loader'],
+        use: ['style-loader', 'css-loader']
       },
       {
         test: /\.(png|svg|jpg|gif)$/,
-        loader: 'url-loader',
-      },
-    ],
-  },
+        loader: 'url-loader'
+      }
+    ]
+  }
 };

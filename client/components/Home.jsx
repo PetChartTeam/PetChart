@@ -1,0 +1,57 @@
+/**
+ * ***********************************
+ *
+ * @module Home
+ * @author Austin Ruby and Michael Evans
+ * @date 10/12/2019
+ * @description functional component that displays
+ * a user's pets and the option to create a new pet
+ * within the Dashboard
+ *
+ * ***********************************
+ */
+
+import React from 'react';
+
+import PetNameButton from './PetNameButton.jsx';
+import emptyPet from '../constants/emptyPetObj';
+
+const Home = (props) => {
+  console.log('homeprops', props);
+
+  const petButtons = [];
+  props.pets.forEach((petObj, i) => {
+    // console.log(petObj);
+    petButtons.push(
+      <PetNameButton
+        activatePet={props.activatePet}
+        petId={petObj.id}
+        petName={petObj.name}
+        key={`petNav${i}`}
+      />,
+    );
+  });
+  return (
+    <div className="home-container">
+      <div className="greeting">
+        Hello,
+        {' '}
+        {props.owner}
+      </div>
+      <div className="home-title">
+        <p>
+          {props.owner}
+          's pets:
+        </p>
+      </div>
+      <div className="home-pets">{petButtons}</div>
+      <div className="home-add-button">
+        <button type="button" onClick={() => props.changeDBPage('add', emptyPet)}>
+          Add a Pet
+        </button>
+      </div>
+    </div>
+  );
+};
+
+export default Home;

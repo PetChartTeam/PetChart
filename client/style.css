@@ -1,0 +1,283 @@
+/* Primary
+#61f2f5
+Secondary
+#ffffff
+Tertiary
+#e0e0e0
+Accent
+#723881 */
+
+:root {
+  --green: #61f2f5;
+  --lightgreen: #9eb5da;
+  --lightergreen: #cbd7ec;
+  --white: whitesmoke;
+  --purple: #7797c9;
+  --black: #2a2828;
+}
+
+#root {
+  display: flex;
+  background-color: var(--white);
+  justify-content: center;
+}
+
+body {
+  background-color: var(--white);
+  margin: 0px;
+  box-sizing: border-box;
+  font-family: 'apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial',
+    'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
+    'Noto Color Emoji';
+}
+
+#mainContainerWrapper {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+#headerContainer {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  width: 100%;
+  background-color: var(--lightgreen);
+  padding: 1px;
+}
+
+#headerContainer img {
+  margin-left: 20px;
+  width: 20px;
+  height: 20px;
+  filter: invert(100%);
+}
+
+#headerContainer h1 {
+  color: var(--black);
+  text-align: center;
+  font-size: 1rem;
+}
+
+#loginWrapper {
+  width: 50%;
+}
+
+#loginForm {
+  border-radius: 4px;
+  margin-top: 50px;
+  box-shadow: 0px 0px 2px 2px lightgray;
+  offset: 10px 10px 10px 10px;
+  padding: 25px;
+  text-align: center;
+}
+
+#loginForm label {
+  font-size: 0.75rem;
+  margin-right: 20px;
+}
+
+#loginLine1 {
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+#loginLine2 {
+  display: flex;
+  justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.loginFormButtons {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+}
+
+#loginButton {
+  margin: 10px;
+  border-radius: 5px;
+  padding: 5px 8px 5px 8px;
+  background: var(--lightgreen);
+}
+
+#loginButton:hover {
+  background: var(--lightergreen);
+}
+
+#signup {
+  margin-top: 50px;
+  border-radius: 4px;
+  box-shadow: 0px 0px 2px 2px lightgray;
+  offset: 10px 10px 10px 10px;
+  padding: 5px 25px 25px 25px;
+}
+
+#signup p {
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 0.6rem;
+  letter-spacing: 2px;
+}
+
+#signupForm {
+  margin-top: 20px;
+  text-align: center;
+}
+
+#signupForm label {
+  font-size: 0.75rem;
+  margin-right: 20px;
+}
+
+#signupButton {
+  margin: 10px;
+  border-radius: 5px;
+  padding: 5px 10px 5px 10px;
+}
+
+#signupButton:hover {
+  background: rgba(0, 0, 0, 0.01);
+}
+
+.signupFormRow {
+  display: flex;
+  justify-content: space-between;
+  margin: -5px -5px;
+}
+
+#signupSubmit {
+  margin: 10px;
+  border-radius: 5px;
+  padding: 5px 8px 5px 8px;
+  background: var(--lightgreen);
+}
+
+#backToLogin {
+  margin: 10px;
+  border-radius: 5px;
+  padding: 5px 10px 5px 10px;
+}
+
+#dashboardWrapper {
+  width: 100%;
+}
+
+.nav-bar {
+  background-color: var(--lightergreen);
+  width: 100%;
+  margin-bottom: 20px;
+  padding: 5px;
+}
+
+.nav-buttons {
+  display: flex;
+  justify-content: center;
+}
+
+.nav-button {
+  padding: 5px;
+  border: none;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  margin: 0 5px 0 5px;
+  background: none;
+  border-radius: 5px;
+}
+
+.nav-button:hover {
+  background: var(--lightgreen);
+}
+
+.home-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: var(--black);
+}
+
+.greeting {
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.home-pets {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.home-add-button button {
+  margin-top: 20px;
+  border-radius: 5px;
+  padding: 5px 8px 5px 8px;
+  background: var(--lightgreen);
+}
+
+.home-add-button button:hover {
+  background: var(--lightergreen);
+}
+
+.profile-header,
+.profile-body {
+  background-color: var(--white);
+}
+
+.profile-container {
+  background-color: var(--green);
+  margin: 0 5% 0 5%;
+}
+
+.profile-container .profile-header-content {
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+  align-items: center;
+}
+
+.profile-container img {
+  width: 50px;
+  height: 50px;
+  border-radius: 100%;
+}
+
+.profile-container .img-name {
+  display: flex;
+  margin: 5px;
+}
+
+.profile-container .img-name h1 {
+  margin-left: 10px;
+}
+
+.profile-header-content input {
+  height: 20px;
+  padding: -10px 10px 10px 10px;
+  border-radius: 5px;
+}
+
+.pet-profile-details-form {
+  display: grid;
+}
+
+.pet-profile-details-form p {
+  font-size: 20;
+}
+
+.pet-profile-details-form input {
+  margin-top: 2%;
+  width: max-content;
+}
+
+.pet-profile-details-view label {
+  padding: 1%;
+}
