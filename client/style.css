@@ -9,10 +9,10 @@ Accent
 
 :root {
   --green: #61f2f5;
-  --lightgreen: #7ec79574;
-  --lightergreen: #7ec79535;
+  --lightgreen: #9eb5da;
+  --lightergreen: #cbd7ec;
   --white: whitesmoke;
-  --purple: #723881;
+  --purple: #7797c9;
   --black: #2a2828;
 }
 
@@ -110,7 +110,7 @@ body {
 }
 
 #loginButton:hover {
-  background: #7ec795b8;
+  background: var(--lightergreen);
 }
 
 #signup {
@@ -194,7 +194,7 @@ body {
 }
 
 .nav-button:hover {
-  background: var(--lightergreen);
+  background: var(--lightgreen);
 }
 
 .home-container {
@@ -224,7 +224,7 @@ body {
 }
 
 .home-add-button button:hover {
-  background: #7ec795b8;
+  background: var(--lightergreen);
 }
 
 .profile-header,
