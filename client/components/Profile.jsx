@@ -17,6 +17,7 @@ import Visit from './Visit.jsx';
 import Vaccine from './Vaccine.jsx';
 import Surgery from './Surgery.jsx';
 import JSPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 
 class Profile extends Component {
   constructor(props) {
@@ -68,11 +69,27 @@ class Profile extends Component {
   // }
 
   createPDF(e) {
-    const doc = new JSPDF();
-    let myText = `pet: ${this.props.activePet.name}\nname: ${this.props.activePet.type}\nbirth year: ${this.props.activePet.birthYear}\ngender: ${this.props.activePet.gender}\nspayed/neutered? ${this.props.activePet.spayed}`;
-    doc.text(myText, 10, 10);
-    doc.save(`${this.props.activePet.name}-petchart.pdf`);
+    const input = document.querySelector('#pet-profile');
+    const pdf = new JSPDF();
+    if (pdf) {
+      html2canvas(input, {
+        useCORS: true
+      }).then(canvas => {
+        const imgData = canvas.toDataURL('image/png');
+        console.log(imgData); //Maybe blank, maybe full image, maybe half of image
+        pdf.addImage(imgData, 'PNG', 5, 5);
+        pdf.save('download.pdf');
+      });
+    }
+    // const doc = new JSPDF();
+    // let myText = `pet: ${this.props.activePet.name}\nname: ${this.props.activePet.type}\nbirth year: ${this.props.activePet.birthYear}\ngender: ${this.props.activePet.gender}\nspayed/neutered? ${this.props.activePet.spayed}`;
+    // doc.text(myText, 10, 10);
+    // doc.save(`${this.props.activePet.name}-petchart.pdf`);
   }
+
+  // html2canvas(document.body).then(function(canvas) {
+  //   document.body.appendChild(canvas);
+  // });
 
   // grab visit details from form
   // PATCH to server
@@ -182,7 +199,7 @@ class Profile extends Component {
     // }
 
     return (
-      <div className="profile-container">
+      <div className="profile-container" id="pet-profile">
         <section className="profile-header">
           <div className="profile-header-content">
             <div className="img-name">
