@@ -131,7 +131,8 @@ class Profile extends Component {
       .then(response => response.json())
       .then(petObject => {
         console.log('petobj in react is', petObject);
-        // this.savePet(petObject);
+        // add petObject number to redux for state update
+        this.props.deletePet(petObject);
       })
       .catch(err => console.log(err));
   }

@@ -247,13 +247,15 @@ const appReducer = (state = initialState, action) => {
       //   ...emptyPet,
       // };
       // SPLICE OUT PETTOREMOVE FROM USERPROFILE.PETS
-      for (let i = 0; i < userProfile.pets; i++) {
+      for (let i = 0; i < userProfile.pets.length; i++) {
+        console.log('LOOP ELEMENT', userProfile.pets[i].id);
+        console.log('RES PET ID', responsePetId);
         if (userProfile.pets[i].id === responsePetId) {
           userProfile.pets.splice(i, 1);
           break;
         }
       }
-      console.log('pets array: ', userProfile.pets); // make sure pet was removed successfully;
+      console.log('pets array in reducer DELETE: ', userProfile.pets); // make sure pet was removed successfully;
 
       return {
         ...state,
