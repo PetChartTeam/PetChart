@@ -235,7 +235,7 @@ class Profile extends Component {
                 <strong>Birth Year:</strong> {activePet.birthYear};
               </label>
               <label>
-                <strong>Gender:</strong> ${activePet.gender}
+                <strong>Gender:</strong> {activePet.gender}
               </label>
               <label>
                 <strong>Spayed/Neutered?</strong> {activePet.spayed};

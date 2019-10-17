@@ -152,7 +152,7 @@ class UpdatePet extends Component {
           </div>
           <div className="pet-profile-details-container">
             <form className="pet-profile-details-form">
-              Add/update pet details: <br />
+              <p>Add/update pet details:</p> <br />
               <label>
                 Name:
                 <input type="text" name="name" id="pet-name-input" />
