@@ -15,7 +15,7 @@ import { connect } from 'react-redux';
 
 import PetNameButton from './PetNameButton.jsx';
 
-const Nav = props => {
+const Nav = (props) => {
   console.log('Nav props: ', props);
   // console.log('Nav petNavDetails: ', props.petNavDetails);
   const petButtons = [];
@@ -27,18 +27,17 @@ const Nav = props => {
         petId={petObj.id}
         petName={petObj.name}
         key={`petNav${i}`}
-      />
+      />,
     );
   });
   // console.log(petButtons);
   return (
     <div className="nav-bar">
-      <div className="greeting">Hello, {props.owner}</div>
       <div className="nav-buttons">
-        <button type="button" onClick={() => props.changeDBPage('home')}>
+        <button className="nav-button" type="button" onClick={() => props.changeDBPage('home')}>
           Home
         </button>
-        <button type="button" onClick={() => props.logout('login')}>
+        <button className="nav-button" type="button" onClick={() => props.logout('login')}>
           Logout
         </button>
       </div>

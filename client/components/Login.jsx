@@ -12,31 +12,32 @@
 
 import React, { Component } from 'react';
 
-//return content to render for the login page
-const Login = props => {
-  return (
-    <div>
-      {/* login form: */}
-      <form id="loginForm" onSubmit={event => props.saveProfile(event)}>
-        <div id="loginLine1">
-          <label> Email: </label>
-          <input placeholder="email" type="input" id="email"></input>
-        </div>
-        <div id="loginLine2">
-          <label> password: </label>
-          <input placeholder="password" type="input" id="password"></input>
-        </div>
+// return content to render for the login page
+const Login = (props) => (
+  <div id="loginWrapper">
+    {/* login form: */}
+    <form id="loginForm" onSubmit={(event) => props.saveProfile(event)}>
+      <div id="loginLine1">
+        <label> Email: </label>
+        <input placeholder="email" type="input" id="email" />
+      </div>
+      <div id="loginLine2">
+        <label> password: </label>
+        <input placeholder="password" type="input" id="password" />
+      </div>
 
+      <div className="loginFormButtons">
+        <input id="loginButton" className="loginButton" type="submit" value="Login" />
         <input
-          class="loginButton"
+          id="signupButton"
+          className="loginButton"
           type="button"
           value="Sign up"
           onClick={() => props.publicPage('signup')}
-        ></input>
-        <input class="loginButton" type="submit" value="login"></input>
-      </form>
-    </div>
-  );
-};
+        />
+      </div>
+    </form>
+  </div>
+);
 
 export default Login;

@@ -9,8 +9,10 @@ Accent
 
 :root {
   --green: #61f2f5;
+  --lightgreen: #9eb5da;
+  --lightergreen: #cbd7ec;
   --white: whitesmoke;
-  --purple: #723881;
+  --purple: #7797c9;
   --black: #2a2828;
 }
 
@@ -29,21 +31,42 @@ body {
     'Noto Color Emoji';
 }
 
-#headerContainer {
+#mainContainerWrapper {
+  display: flex;
+  justify-content: center;
   width: 100%;
-  background-color: var(--purple);
-  padding: 8px;
+}
+
+#headerContainer {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  width: 100%;
+  background-color: var(--lightgreen);
+  padding: 1px;
+}
+
+#headerContainer img {
+  margin-left: 20px;
+  width: 20px;
+  height: 20px;
+  filter: invert(100%);
 }
 
 #headerContainer h1 {
-  color: var(--white);
+  color: var(--black);
   text-align: center;
+  font-size: 1rem;
+}
+
+#loginWrapper {
+  width: 50%;
 }
 
 #loginForm {
-  border: 2px solid var(--brown);
   border-radius: 4px;
-  margin-top: 100px;
+  margin-top: 50px;
   box-shadow: 0px 0px 2px 2px lightgray;
   offset: 10px 10px 10px 10px;
   padding: 25px;
@@ -73,27 +96,105 @@ body {
   margin-bottom: 10px;
 }
 
-.loginButton {
+.loginFormButtons {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+}
+
+#loginButton {
   margin: 10px;
   border-radius: 5px;
-  padding: 5px;
+  padding: 5px 8px 5px 8px;
+  background: var(--lightgreen);
 }
 
-.profile-header,
-.profile-body {
-  background-color: var(--white);
+#loginButton:hover {
+  background: var(--lightergreen);
 }
 
-.profile-container {
-  background-color: var(--green);
+#signup {
+  margin-top: 50px;
+  border-radius: 4px;
+  box-shadow: 0px 0px 2px 2px lightgray;
+  offset: 10px 10px 10px 10px;
+  padding: 5px 25px 25px 25px;
+}
+
+#signup p {
+  text-align: center;
+  text-transform: uppercase;
+  font-size: .6rem;
+  letter-spacing: 2px;
+}
+
+#signupForm {
+  margin-top: 20px;
+  text-align: center;
+}
+
+#signupForm label {
+  font-size: 0.75rem;
+  margin-right: 20px;
+}
+
+#signupButton {
+  margin: 10px;
+  border-radius: 5px;
+  padding: 5px 10px 5px 10px;
+}
+
+#signupButton:hover {
+  background: rgba(0,0,0,.01);
+}
+
+.signupFormRow {
+  display: flex;
+  justify-content: space-between;
+  margin: -5px -5px;
+}
+
+#signupSubmit {
+  margin: 10px;
+  border-radius: 5px;
+  padding: 5px 8px 5px 8px;
+  background: var(--lightgreen);
+}
+
+#backToLogin {
+  margin: 10px;
+  border-radius: 5px;
+  padding: 5px 10px 5px 10px;
+}
+
+#dashboardWrapper {
+  width: 100%;
 }
 
 .nav-bar {
-  display: flex;
-  background-color: var(--white);
-  justify-content: space-between;
+  background-color: var(--lightergreen);
   width: 100%;
-  margin-bottom: 5%;
+  margin-bottom: 20px;
+  padding: 5px;
+}
+
+.nav-buttons {
+  display: flex;
+  justify-content: center;
+}
+
+.nav-button {
+  padding: 5px;
+  border: none;
+  font-size: .8rem;
+  text-transform: uppercase;
+  margin: 0 5px 0 5px;
+  background: none;
+  border-radius: 5px;
+}
+
+.nav-button:hover {
+  background: var(--lightgreen);
 }
 
 .home-container {
@@ -103,9 +204,64 @@ body {
   color: var(--black);
 }
 
+.greeting {
+  font-size: .6rem;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
 .home-pets {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  margin: 5% 30%;
 }
+
+.home-add-button button {
+  margin-top: 20px;
+  border-radius: 5px;
+  padding: 5px 8px 5px 8px;
+  background: var(--lightgreen);
+}
+
+.home-add-button button:hover {
+  background: var(--lightergreen);
+}
+
+.profile-header,
+.profile-body {
+  background-color: var(--white);
+}
+
+.profile-container {
+  background-color: var(--green);
+  margin: 0 10px 0 10px;
+}
+
+.profile-container .profile-header-content {
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+  align-items: center;
+}
+
+.profile-container img {
+  width: 50px;
+  height: 50px;
+  border-radius: 100%;
+}
+
+.profile-container .img-name {
+  display: flex;
+  margin: 5px;
+}
+
+.profile-container .img-name h1 {
+  margin-left: 10px;
+}
+
+.profile-header-content input {
+  height: 20px;
+  padding: -10px 10px 10px 10px;
+  border-radius: 5px;
+}
+

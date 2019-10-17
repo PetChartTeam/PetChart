@@ -47,22 +47,22 @@ class Profile extends Component {
       birthYear,
       gender,
       spayed,
-      ownerID
+      ownerID,
     };
 
     fetch('/pets/', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ pet: petProfile })
+      body: JSON.stringify({ pet: petProfile }),
     })
-      .then(response => response.json())
-      .then(petObject => {
+      .then((response) => response.json())
+      .then((petObject) => {
         console.log(petObject);
         this.savePet(petObject);
       })
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
   }
 
   // grab visit details from form
@@ -80,7 +80,7 @@ class Profile extends Component {
       date,
       notes,
       vet,
-      file
+      file,
     };
     return this.props.savePet(petProfile);
   }
@@ -96,7 +96,7 @@ class Profile extends Component {
     const petProfile = {
       id: this.props.activePet.id,
       date,
-      name
+      name,
     };
     return this.props.savePet(petProfile);
   }
@@ -112,7 +112,7 @@ class Profile extends Component {
     const petProfile = {
       id: this.props.activePet.id,
       date,
-      name
+      name,
     };
     return this.props.savePet(petProfile);
   }
@@ -125,18 +125,18 @@ class Profile extends Component {
     fetch('/pets/', {
       method: 'DELETE',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ id })
+      body: JSON.stringify({ id }),
     })
-      .then(response => response.json())
-      .then(petObject => {
+      .then((response) => response.json())
+      .then((petObject) => {
         console.log('petobj in react is', petObject);
         // add petObject number to redux for state update
         this.props.deletePet(petObject);
         this.changeDBPage('home');
       })
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
   }
 
   render() {
@@ -159,7 +159,7 @@ class Profile extends Component {
         }
         if (activePet.surgeries[i]) {
           surgeriesListItems.push(
-            <Surgery surgery={activePet.surgeries[i]} key={`surgery-${i}`} />
+            <Surgery surgery={activePet.surgeries[i]} key={`surgery-${i}`} />,
           );
         }
       }
@@ -175,9 +175,11 @@ class Profile extends Component {
     return (
       <div className="profile-container">
         <section className="profile-header">
-          <div className="img-name">
-            {/* <img src={`"${activePet.profilePic}"`} alt="pet profile pic" /> */}
-            <h1>{activePet.name}</h1>
+          <div className="profile-header-content">
+            <div className="img-name">
+              <img src="/build/images/dog.png" alt="pet profile pic" />
+              <h1>{activePet.name}</h1>
+            </div>
             <input type="submit" value="Update Pet Details" />
             <input
               type="submit"
@@ -186,24 +188,40 @@ class Profile extends Component {
                 this.deletePet(activePet.id);
               }}
             />
+
           </div>
 
           <div className="pet-profile-details-container">
             <form className="pet-profile-details-view">
               <label>
-                <strong>Name:</strong> {activePet.name};
+                <strong>Name:</strong>
+                {' '}
+                {activePet.name}
+                ;
               </label>
               <label>
-                <strong>Type:</strong> {activePet.type};
+                <strong>Type:</strong>
+                {' '}
+                {activePet.type}
+                ;
               </label>
               <label>
-                <strong>Birth Year:</strong> {activePet.birthYear};
+                <strong>Birth Year:</strong>
+                {' '}
+                {activePet.birthYear}
+                ;
               </label>
               <label>
-                <strong>Gender:</strong> ${activePet.gender}
+                <strong>Gender:</strong>
+                {' '}
+                $
+                {activePet.gender}
               </label>
               <label>
-                <strong>Spayed/Neutered?</strong> {activePet.spayed};
+                <strong>Spayed/Neutered?</strong>
+                {' '}
+                {activePet.spayed}
+                ;
               </label>
             </form>
           </div>

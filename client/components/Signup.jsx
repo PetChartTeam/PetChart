@@ -10,32 +10,41 @@
  * ***********************************
  */
 
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 
 
 const Signup = (props) => {
-  console.log(props)
+  console.log(props);
   return (
-  <div>
-    signup form:
-    <form id = "signupForm" onSubmit = { (event) => props.newUser(event)}>
-      <label> First Name: </label>
-      <input type="input" id = "email"></input>
-      <br></br>
-      <label> Last Name: </label>
-      <input type="input" id = "email"></input>
-      <br></br>
-      <label> Email: </label>
-      <input type="input" id = "email"></input>
-      <br></br>
-      <label> Password: </label>
-      <input type="input" id = "password"></input>
-      <br></br>
-      <input type="submit" value="create user name"></input>
-    </form>
-    <input type="button" value="back to login" onClick = { () => props.publicPage("login")} ></input>
-  </div>
+    <div id="signup">
+      <p>Sign up:</p>
+      <form id="signupForm" onSubmit={(event) => props.newUser(event)}>
+        <div className="signupFormRow">
+          <label> First Name: </label>
+          <input placeholder="first" type="input" id="email" />
+        </div>
+        <br />
+        <div className="signupFormRow">
+          <label> Last Name: </label>
+          <input placeholder="last" type="input" id="email" />
+        </div>
+        <br />
+        <div className="signupFormRow">
+          <label> Email: </label>
+          <input placeholder="email" type="input" id="email" />
+        </div>
+        <br />
+        <div className="signupFormRow">
+          <label> Password: </label>
+          <input placeholder="pass" type="input" id="password" />
+        </div>
+        <br />
+        <input id="signupSubmit" type="submit" value="create user name" />
+      </form>
+      <input id="backToLogin" type="button" value="back to login" onClick={() => props.publicPage('login')} />
+    </div>
 
-)}
+  );
+};
 
 export default Signup;
