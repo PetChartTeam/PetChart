@@ -1,5 +1,4 @@
 # PetChart
-Pet EMR for rich people
 
 Front End Explanations
   - fetch requests in stateful components may not be the best way to send/receive data from server
