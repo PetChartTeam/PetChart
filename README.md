@@ -1,6 +1,4 @@
 # PetChart
-<<<<<<< HEAD
-=======
 
 Front End Explanations
   - fetch requests in stateful components may not be the best way to send/receive data from server
@@ -15,4 +13,3 @@ Back End Explanations
   - Nested queries due to async db requests
   
 <img src="./Image from iOS (1).jpg"/>
->>>>>>> master
